@@ -1,0 +1,13 @@
+ How to Build restSampleServices
+ -------------------------------
+ 
+ # Development Environment
+ Install NodeJS 4.x
+ 
+ Execute  "npm install grunt-cli -g"
+ 
+ # Additional Information & Links
+ Nodejs: https://nodejs.org/en/download/
+ more grunt packages here: https://www.npmjs.com/package/
+ ascii doc help: http://asciidoc.org/
+ 
