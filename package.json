@@ -1,0 +1,39 @@
+{
+  "name": "sampleRestServices",
+  "version": "0.1.0",
+  "description": "sample rest services for training of client developers",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restSampleServices/node-service.git"
+  },
+  "keywords": [
+    "rest",
+    "nodejs",
+    "grunt",
+    "training",
+    "tutorial",
+    "sample"
+  ],
+  "author": "daniel bedarf",
+  "license": "Apache License V2.0",
+  "bugs": {
+    "url": "https://github.com/restSampleServices/node-service/issues"
+  },
+  "homepage": "https://github.com/restSampleServices/node-service",
+  "dependencies": {
+    "grunt": "^1.0.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-compress": "^1.2.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "load-grunt-tasks": "^3.5.0",
+    "time-grunt": "^1.3.0"
+  }
+}
