@@ -1,0 +1,7 @@
+SampleService - API Documentation
+====================================
+Daniel <email>
+v0.1, April 2016:
+document created
+
+This Documentation is created by using asciidoc - http://asciidoc.org/
