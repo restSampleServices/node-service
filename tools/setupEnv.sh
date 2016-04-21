@@ -1,1 +1,1 @@
-npm install jasmine -g
+npm install jasmine gulp -g

@@ -34,3 +34,7 @@ node_modules
 
 # Mac
 .DS_Store
+
+# Project related
+dist/
+tmp/
