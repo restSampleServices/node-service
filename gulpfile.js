@@ -27,18 +27,11 @@ gulp.task('ServiceScripts', function () {
 });
 
 gulp.task('doc', function () {
-    return gulp.src(PATH_IN_DOC + '**/*.adoc')
+    return gulp.src(PATH_IN_DOC + '**/api.adoc')
         .pipe(asciidoctor({
-            header_footer: false,
-            safe: 'secured',
-            //doctype:'article',
-            ////book,
-            //inline header_footer: true, // true or false 
-            attributes: ['showtitle']
+            doctype: 'book'
+                //attributes: ['showtitle', 'silverlight']
         }))
-        /*.pipe(asciidoctor({
-            attributes: ['silverlight']
-        }))*/
         .pipe(gulp.dest(PATH_OUT_DOC));
 });
 
