@@ -1,0 +1,46 @@
+:icons: font
+:name: API Documentation
+:book:
+:showtitle:
+
+= API Documentation: REST Endpoint Overview
+DAN BED <some@mail.com>; a2
+V0.1, April 2016: draft
+
+
+This document provides information about available endpoints.
+
+
+
+:toc:
+== About the Document
+Current Version {revnumber} from {revdate}
+
+Status: {revremark}
+
+Authors:
+{authors}
+
+* {authorinitials}
+* {author_2}
+
+Document History
+----------------
+
+[#authors]
+
+Changelog
+~~~~~~~~~
+[options="header"]
+|===========================
+|Version  |Date    | Description
+|0.1      |04.2016 | Document created
+|0.1.1    |04.2016 | sample
+|===========================
+
+This Documentation is created by using asciidoc - http://asciidoc.org/
+
+[TIP]
+v0.1, April 2016:
+document created
+

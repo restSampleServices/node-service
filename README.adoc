@@ -1,0 +1,15 @@
+node-service repository
+-----------------------
+That is our core nodejs based rest service project.
+
+Build Status
+~~~~~~~~~~~~
+[options: header]
+|==================
+|Branch|Status
+|Develop|image:https://travis-ci.org/restSampleServices/node-service.svg?branch=develop["Build Status", link="https://travis-ci.org/restSampleServices/node-service"]
+|Beta (Stable)|image:https://travis-ci.org/restSampleServices/node-service.svg?branch=beta["Build Status", link="https://travis-ci.org/restSampleServices/node-service"]
+|Master (Release)|image:https://travis-ci.org/restSampleServices/node-service.svg?branch=master["Build Status", link="https://travis-ci.org/restSampleServices/node-service"]
+|===================
+
+Please have a look to our Wiki and to the doc folder to become familiar with the branches, settng up the build environment and something more.
