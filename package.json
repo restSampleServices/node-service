@@ -28,12 +28,10 @@
     },
     "homepage": "https://github.com/restSampleServices/node-service",
     "dependencies": {
-
+        "express": "^4.13.4"
     },
     "devDependencies": {
         "del": "^2.2.0",
-        "grunt-contrib-compress": "^1.2.0",
-        "grunt-contrib-copy": "^1.0.0",
         "gulp": "^3.9.1",
         "gulp-asciidoctor": "^1.0.7",
         "gulp-autoprefixer": "^3.1.0",
@@ -43,7 +41,6 @@
         "gulp-uglify": "^1.5.3",
         "jshint": "^2.9.2",
         "jshint-stylish": "^2.1.0",
-        "asciidoctor.js": "^1.5.5-1",
-        "grunt": "^1.0.1"
+        "asciidoctor.js": "^1.5.5-1"
     }
 }
