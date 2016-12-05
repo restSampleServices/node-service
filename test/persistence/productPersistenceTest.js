@@ -8,7 +8,7 @@ var mockRequire = require('mock-require');
 
 describe('Persistence', function () {
 
-    describe('Product', function () {
+    xdescribe('Product', function () {
 
         describe('general', function () {
 
