@@ -9,12 +9,24 @@
     "scripts": {
         "start": "node src/service.js",
         "test": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000",
-        "stylecheck": "./node_modules/jshint/bin/jshint --reporter=node_modules/jshint-stylish src/*.js"
+        "stylecheck": "./node_modules/jshint/bin/jshint --reporter=node_modules/jshint-stylish src/*.js",
+        "build": "node ./node_modules/gulp/bin/gulp ci"
     },
+
+    "engines": {
+        "node": ">4"
+    },
+
     "repository": {
         "type": "git",
         "url": "https://github.com/restSampleServices/node-service.git"
     },
+    "author": "Daniel Bedarf",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/restSampleServices/node-service/issues"
+    },
+    "homepage": "https://github.com/restSampleServices/node-service",
     "keywords": [
     "rest",
     "nodejs",
@@ -25,12 +37,7 @@
     "tutorial",
     "sample"
   ],
-    "author": "daniel bedarf",
-    "license": "Apache License V2.0",
-    "bugs": {
-        "url": "https://github.com/restSampleServices/node-service/issues"
-    },
-    "homepage": "https://github.com/restSampleServices/node-service",
+
     "dependencies": {
         "cli-color": "^1.1.0",
         "express": "^4.13.4",
