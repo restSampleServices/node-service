@@ -1,48 +1,57 @@
 {
-  "name": "sampleRestServices",
-  "version": "0.1.0",
-  "description": "sample rest services for training of client developers",
-  "main": "index.js",
-  "directories": {
-    "doc": "doc"
-  },
-  "scripts": {
-    "start": "node src/service.js",
-    "test": "jasmine"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/restSampleServices/node-service.git"
-  },
-  "keywords": [
+    "name": "restSampleServicese",
+    "version": "0.1.0",
+    "description": "sample rest services for training of client developers",
+    "main": "index.js",
+    "directories": {
+        "doc": "doc"
+    },
+    "scripts": {
+        "start": "node src/service.js",
+        "test": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000",
+        "stylecheck": "./node_modules/jshint/bin/jshint --reporter=node_modules/jshint-stylish src/*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/restSampleServices/node-service.git"
+    },
+    "keywords": [
     "rest",
     "nodejs",
-    "grunt",
+    "express",
+    "development",
+    "gulp",
     "training",
     "tutorial",
     "sample"
   ],
-  "author": "daniel bedarf",
-  "license": "Apache License V2.0",
-  "bugs": {
-    "url": "https://github.com/restSampleServices/node-service/issues"
-  },
-  "homepage": "https://github.com/restSampleServices/node-service",
-  "dependencies": {
-    "cli-color": "^1.1.0",
-    "express": "^4.13.4"
-  },
-  "devDependencies": {
-    "del": "^2.2.0",
-    "gulp": "^3.9.1",
-    "gulp-asciidoctor": "^1.0.7",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-jshint": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.3",
-    "jshint": "^2.9.2",
-    "jshint-stylish": "^2.1.0",
-    "asciidoctor.js": "^1.5.5-1"
-  }
+    "author": "daniel bedarf",
+    "license": "Apache License V2.0",
+    "bugs": {
+        "url": "https://github.com/restSampleServices/node-service/issues"
+    },
+    "homepage": "https://github.com/restSampleServices/node-service",
+    "dependencies": {
+        "cli-color": "^1.1.0",
+        "express": "^4.13.4",
+        "nodelog": "^0.3.0"
+    },
+    "devDependencies": {
+        "asciidoctor.js": "^1.5.5-1",
+        "chai": "^3.5.0",
+        "del": "^2.2.0",
+        "gulp": "^3.9.1",
+        "gulp-asciidoctor": "^1.0.7",
+        "gulp-autoprefixer": "^3.1.0",
+        "gulp-concat": "^2.6.0",
+        "gulp-jshint": "^2.0.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-uglify": "^1.5.3",
+        "istanbul": "^0.4.4",
+        "jshint": "^2.9.2",
+        "jshint-stylish": "^2.2.0",
+        "mocha": "^3.0.0",
+        "mock-require": "^1.3.0",
+        "node-mocks-http": "^1.5.2"
+    }
 }
