@@ -9,7 +9,7 @@ before_script:
   - npm install -g gulp
   
 script:
- - npm run istanbul
+ - npm test
 
 after_script:
   - npm install codeclimate-test-reporter
