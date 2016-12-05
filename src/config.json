@@ -1,0 +1,19 @@
+{
+    "productName": "Sample Service",
+    "technicalProductName": "sampleService",
+    "version": {
+        "major": 0,
+        "minor": 1
+    },
+
+    "server": {
+        "port": 8081
+    },
+
+    "persistence": {
+        "database": "mock",
+        "dynamodb": {
+            "config": "no supported yet"
+        }
+    }
+}

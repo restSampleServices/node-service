@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - "6"
+  - "5"
+  - "4"
+  - "0.12"
+  
+before_script:
+  - npm install -g gulp
+  
+script:
+ - npm test
+
+after_script:
+  - npm install codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/lcov.info
+  
+#script: gulp
+addons:
+  code_climate:
+  
+cache:
+  bundler: true
+  directories:
+  - node_modules/
