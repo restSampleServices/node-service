@@ -5,11 +5,13 @@ var errorHandler = require('../errorHandler.js');
 
 var employeeDB = require('./../persistence/employeePersistence.js');
 
-function getProducts(req, res) {
+function getEmployees(req, res) {
     try {
         log.info('productsController.getProducts ');
-        productDB.getAllProducts().then(function (products) {
-            res.json(products);
+        employeeDB.getAllEmployees().then(function (employees) {
+            var response = employees;
+            console.log(response);
+            res.json(response);
         }).catch(function (dbError) {
             errorHandler.DataNotFound(dbError, res);
         });
@@ -31,7 +33,7 @@ function updateProduct(req, res) {
 function init(app) {
     log.info('initialize productsController');
     app.route(endpoints.employees.root)
-        .get(getProducts)
+        .get(getEmployees)
         .post(createProduct)
         .put(updateProduct);
 }

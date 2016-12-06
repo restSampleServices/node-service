@@ -1,5 +1,5 @@
 'use strict';
-var Company = require('./company');
+var Job = require('./job');
 var Address = require('./address');
 
 function Employee(json) {
@@ -34,7 +34,7 @@ function Employee(json) {
         }
 
         if (json.jobHistory !== undefined) {
-            _internalData.jobHistory = Company.createList(json.jobHistory);
+            _internalData.jobHistory = Job.createList(json.jobHistory);
         }
     }
 
@@ -42,10 +42,10 @@ function Employee(json) {
 
     //we encapsulate all properties so that we can add validations
     Object.defineProperty(this, 'firstName', {
-        get: function() {
+        get: function () {
             return _internalData.firstName;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.firstName = value;
             } else {
@@ -55,10 +55,10 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'lastName', {
-        get: function() {
+        get: function () {
             return _internalData.lastName;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.lastName = value;
             } else {
@@ -68,16 +68,16 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'fullName', {
-        get: function() {
+        get: function () {
             return _internalData.firstName + ' ' + _internalData.lastName;
         }
     });
 
     Object.defineProperty(this, 'dateOfBirth', {
-        get: function() {
+        get: function () {
             return _internalData.dateOfBirth;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.dateOfBirth = value;
             } else {
@@ -87,10 +87,10 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'email', {
-        get: function() {
+        get: function () {
             return _internalData.email;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 //TODO validate at sign etc
                 _internalData.email = value;
@@ -101,10 +101,10 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'phone', {
-        get: function() {
+        get: function () {
             return _internalData.phone;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.phone = value;
             } else {
@@ -114,10 +114,10 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'address', {
-        get: function() {
+        get: function () {
             return _internalData.address;
         },
-        set: function(value) {
+        set: function (value) {
             if (1 != 2) {
                 //TODO check for typeof Address
                 _internalData.address = value;
@@ -128,10 +128,10 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'imageUrl', {
-        get: function() {
+        get: function () {
             return _internalData.imageUrl;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.imageUrl = value;
             } else {
@@ -142,10 +142,10 @@ function Employee(json) {
 
 
     Object.defineProperty(this, 'department', {
-        get: function() {
+        get: function () {
             return _internalData.department;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.department = value;
             } else {
@@ -155,10 +155,10 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'jobTitle', {
-        get: function() {
+        get: function () {
             return _internalData.jobTitle;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.jobTitle = value;
             } else {
@@ -168,14 +168,14 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'jobHistory', {
-        get: function() {
+        get: function () {
             return _internalData.jobHistory;
         }
     });
 
 }
 
-Employee.prototype.toJson = function() {
+Employee.prototype.toJson = function () {
     return JSON.stringify(this._internalData, null, 2);
 };
 
