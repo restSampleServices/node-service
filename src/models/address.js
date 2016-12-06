@@ -30,10 +30,11 @@ function Address(json) {
 
     //we encapsulate all properties so that we can add validations
     Object.defineProperty(this, 'country', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.country;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.country = value;
             } else {
@@ -43,10 +44,11 @@ function Address(json) {
     });
 
     Object.defineProperty(this, 'city', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.city;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.city = value;
             } else {
@@ -56,10 +58,11 @@ function Address(json) {
     });
 
     Object.defineProperty(this, 'zipcode', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.zipcode;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.zipcode = value;
             } else {
@@ -70,10 +73,11 @@ function Address(json) {
 
 
     Object.defineProperty(this, 'street', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.street;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.street = value;
             } else {
@@ -83,10 +87,11 @@ function Address(json) {
     });
 
     Object.defineProperty(this, 'street2', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.street2;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.street2 = value;
             } else {
@@ -96,10 +101,11 @@ function Address(json) {
     });
 
     Object.defineProperty(this, 'geo', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.geo;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.geo = value;
             } else {
@@ -109,9 +115,5 @@ function Address(json) {
     });
 
 }
-
-Address.prototype.toJson = function() {
-    return JSON.stringify(this._internalData, null, 2);
-};
 
 module.exports = Address;

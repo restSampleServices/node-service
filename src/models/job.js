@@ -29,10 +29,10 @@ function Job(json) {
 
     //we encapsulate all properties so that we can add validations
     Object.defineProperty(this, 'companyName', {
-        get: function() {
+        get: function () {
             return _internalData.companyName;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.companyName = value;
             } else {
@@ -42,10 +42,11 @@ function Job(json) {
     });
 
     Object.defineProperty(this, 'department', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.department;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.department = value;
             } else {
@@ -55,10 +56,11 @@ function Job(json) {
     });
 
     Object.defineProperty(this, 'dateStart', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.dateStart;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.dateStart = value;
             } else {
@@ -68,10 +70,11 @@ function Job(json) {
     });
 
     Object.defineProperty(this, 'dateEnd', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.dateEnd;
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== undefined) {
                 _internalData.dateEnd = value;
             } else {
@@ -81,11 +84,12 @@ function Job(json) {
     });
 
     Object.defineProperty(this, 'address', {
-        get: function() {
+        enumerable: true,
+        get: function () {
             return _internalData.address;
         },
-        set: function(value) {
-            if (1 != 2) {
+        set: function (value) {
+            if (true) {
                 //TODO check for typeof Address
                 _internalData.address = value;
             } else {
@@ -95,9 +99,5 @@ function Job(json) {
     });
 
 }
-
-Job.prototype.toJson = function() {
-    return JSON.stringify(this._internalData, null, 2);
-};
 
 module.exports = Job;

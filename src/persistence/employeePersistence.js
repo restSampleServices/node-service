@@ -17,9 +17,10 @@ function getAllEmployeesMock() {
     if (employeesMock === undefined) {
         employeesMock = [];
         for (var i = 0; i < 10; i++) {
-            employeesMock.push(new Employee({
+            var e = new Employee({
                 firstName: i.toString()
-            }));
+            });
+            employeesMock.push(e);
         }
     }
     return employeesMock;

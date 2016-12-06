@@ -7,17 +7,32 @@ var employeeDB = require('./../persistence/employeePersistence.js');
 
 function getEmployees(req, res) {
     try {
-        log.info('productsController.getProducts ');
+        log.info('employeeController.getemployee ');
         employeeDB.getAllEmployees().then(function (employees) {
-            var response = employees;
-            console.log(response);
-            res.json(response);
+            log.debug(JSON.stringify(employees, null, 2));
+            res.json(employees);
+        }).catch(function (dbError) {
+            errorHandler.InternalServerError(dbError, res);
+        });
+
+    } catch (err) {
+        log.debug('error in employeeController.getemployee');
+        errorHandler.InternalServerError(err, res);
+    }
+}
+
+function getEmployeeById(req, res) {
+    try {
+        log.info('employeeController.getemployee ');
+        employeeDB.getAllEmployees().then(function (employees) {
+            log.verbose(employees);
+            res.json(employees);
         }).catch(function (dbError) {
             errorHandler.DataNotFound(dbError, res);
         });
 
     } catch (err) {
-        log.debug('error in productsController.getProducts');
+        log.debug('error in employeeController.getemployee');
         errorHandler.InternalServerError(err, res);
     }
 }
@@ -31,7 +46,7 @@ function updateProduct(req, res) {
 }
 
 function init(app) {
-    log.info('initialize productsController');
+    log.info('initialize employeeController');
     app.route(endpoints.employees.root)
         .get(getEmployees)
         .post(createProduct)

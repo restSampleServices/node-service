@@ -42,6 +42,7 @@ function Employee(json) {
 
     //we encapsulate all properties so that we can add validations
     Object.defineProperty(this, 'firstName', {
+        enumerable: true,
         get: function () {
             return _internalData.firstName;
         },
@@ -55,6 +56,7 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'lastName', {
+        enumerable: true,
         get: function () {
             return _internalData.lastName;
         },
@@ -68,12 +70,14 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'fullName', {
+        enumerable: true,
         get: function () {
             return _internalData.firstName + ' ' + _internalData.lastName;
         }
     });
 
     Object.defineProperty(this, 'dateOfBirth', {
+        enumerable: true,
         get: function () {
             return _internalData.dateOfBirth;
         },
@@ -87,6 +91,7 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'email', {
+        enumerable: true,
         get: function () {
             return _internalData.email;
         },
@@ -101,6 +106,7 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'phone', {
+        enumerable: true,
         get: function () {
             return _internalData.phone;
         },
@@ -114,11 +120,12 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'address', {
+        enumerable: true,
         get: function () {
             return _internalData.address;
         },
         set: function (value) {
-            if (1 != 2) {
+            if (true) {
                 //TODO check for typeof Address
                 _internalData.address = value;
             } else {
@@ -128,6 +135,7 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'imageUrl', {
+        enumerable: true,
         get: function () {
             return _internalData.imageUrl;
         },
@@ -142,6 +150,7 @@ function Employee(json) {
 
 
     Object.defineProperty(this, 'department', {
+        enumerable: true,
         get: function () {
             return _internalData.department;
         },
@@ -155,6 +164,7 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'jobTitle', {
+        enumerable: true,
         get: function () {
             return _internalData.jobTitle;
         },
@@ -168,15 +178,12 @@ function Employee(json) {
     });
 
     Object.defineProperty(this, 'jobHistory', {
+        enumerable: true,
         get: function () {
             return _internalData.jobHistory;
         }
     });
 
 }
-
-Employee.prototype.toJson = function () {
-    return JSON.stringify(this._internalData, null, 2);
-};
 
 module.exports = Employee;
