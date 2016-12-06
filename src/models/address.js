@@ -11,8 +11,8 @@ function Address(json) {
         street: '',
         street2: '',
         geo: {
-            lat: '',
-            lng: ''
+            latitude: '',
+            longitude: ''
         }
     };
 

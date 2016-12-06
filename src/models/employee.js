@@ -22,8 +22,8 @@ function Employee(json) {
     if (json !== undefined) {
         _internalData.firstName = json.firstName || _internalData.firstName;
         _internalData.lastName = json.lastName || _internalData.lastName;
-        _internalData.userName = json.userName || _internalData.userName;
-        _internalData.email = json.email || _internalData.email;
+        _internalData.userName = _internalData.firstName.substring(0, 1) + _internalData.lastName;
+        _internalData.email = _internalData.firstName + '.' + _internalData.lastName + '@samplecompany.com';
         _internalData.jobTitle = json.jobTitle || _internalData.jobTitle;
         _internalData.department = json.department || _internalData.department;
         _internalData.imageUrl = json.imageUrl || _internalData.imageUrl;
@@ -115,6 +115,20 @@ function Employee(json) {
                 _internalData.phone = value;
             } else {
                 _internalData.phone = '';
+            }
+        }
+    });
+
+    Object.defineProperty(this, 'userName', {
+        enumerable: true,
+        get: function () {
+            return _internalData.userName;
+        },
+        set: function (value) {
+            if (value !== undefined) {
+                _internalData.userName = value;
+            } else {
+                _internalData.userName = '';
             }
         }
     });

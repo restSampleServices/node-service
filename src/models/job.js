@@ -29,6 +29,7 @@ function Job(json) {
 
     //we encapsulate all properties so that we can add validations
     Object.defineProperty(this, 'companyName', {
+        enumerable: true,
         get: function () {
             return _internalData.companyName;
         },
@@ -97,7 +98,16 @@ function Job(json) {
             }
         }
     });
-
 }
+
+//creates a list on job objects based on a job json
+Job.createList = function (json) {
+    if (Array.isArray(json) === false) throw new Error('create list needs an array as input');
+    var jh = [];
+    json.forEach(function (jobJson) {
+        jh.push(new Job(jobJson));
+    });
+    return jh;
+};
 
 module.exports = Job;

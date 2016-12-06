@@ -2,7 +2,7 @@
 
 //core logging settings
 var log = require('nodelog')({
-    logLevel: 'warn'
+    logLevel: 'warning'
 });
 
 var config = require('./config.json');
