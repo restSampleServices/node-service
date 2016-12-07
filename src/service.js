@@ -6,34 +6,33 @@ var log = require('nodelog')({
 });
 
 var config = require('./config.json');
-var endpoints = {
-    apiRoot: '/',
-    employees: {
-        service: '/employees',
-        get_create: '/',
-        getByUserName_update: '/{0}/'
-    }
-}; //require('./endpoints.js');
 
+// ** Initialize Application ** //
 var express = require('express');
 var app = express();
 
-//employees service / endpoints
-var employeesController = require('./rest/employees/employeesController.js');
-var employeeService = express();
-app.use(endpoints.employees.service, employeeService);
-
+// ** Initialize root enpoints ** //
 app.get('/', function(req, res) {
-    var endpoints = require('./rest/endpoints.js');
-
     //TODO: return a better support page than than endpoints definition
-    res.json(endpoints);
+    //TODO: move to separate file
+    res.text('available services: <br/>/employees/');
 });
 
+// ** Initialize Services ** //
+log.info('loading services...');
 
+if (config.services.employees.enabled) {
+    //employees service / endpoints
+    var employeeService = require('./rest/employees/service.js');
+    var employeeApp = express();
+    employeeService(employeeApp);
+    app.use(config.services.employees.endpoints, employeeApp);
+}
+
+
+// ** Start Application Server ** //
 function startService(port) {
-    log.info('loading controllers...');
-    employeesController(employeeService);
+
     log.info('starting rest service...');
     var server = app.listen(port, function() {
 
@@ -44,21 +43,3 @@ function startService(port) {
     });
 }
 startService(config.server.port);
-/*
-configuration.load().then(function (config) {
-    startService(config.server.port);
-}, function (err) {
-    log.error(err);
-});
-*/
-/*
-log.info('starting rest service...');
-var server = app.listen(8081, function () {
-
-    var host = server.address().address;
-    var port = server.address().port;
-
-    log.important('Server is runnning at http://%s:%s', host, port);
-});
-log.important('end of file');
-*/

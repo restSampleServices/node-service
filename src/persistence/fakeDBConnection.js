@@ -2,7 +2,7 @@
 var exports = module.exports = {};
 
 var log = require('nodelog')();
-var config = require('../config.json');
+var config = require('../config.json').services.employees;
 var Employee = require('../models/employee');
 var faker = require('faker');
 

@@ -1,5 +1,6 @@
 'use strict';
 var log = require('nodelog')();
+log.info('loading generic error handler');
 
 var exports = module.exports = {};
 
@@ -34,7 +35,7 @@ function handleError404(err, res) {
         log.debug('handleError404', err);
         assertParameter(err, res);
         var fs = require('fs');
-        fs.readFile(__dirname + '/html/404.html', 'utf8', function (err, html) {
+        fs.readFile(__dirname + '/../html/404.html', 'utf8', function(err, html) {
             if (err) {
                 log.warning('error while reading 404.html', err);
                 res.status(404).send('404 - data not found');

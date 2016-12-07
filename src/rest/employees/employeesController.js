@@ -1,11 +1,21 @@
 'use strict';
+/*
+ * Controller to handle all Employees related calls
+ */
+
+// ** global includes
 var log = require('nodelog')();
-var endpoints = require('./endpoints.js');
 var errorHandler = require('../errorHandler.js');
 
-var employeeDB = require('./../../persistence/employeePersistence.js');
-var EmployeeCollectionEntry = require('./dto/employeeCollectionEntry');
+var endpoints = require('./endpoints.js');
 
+// ** connection to persistence and database
+var employeeDB = require('./../../persistence/employeePersistence.js');
+
+// ** transport related models
+var DTOEmployeeCollectionEntry = require('./dto/employeeCollectionEntry');
+
+//send all employees as dto employee colletion entry to caller
 function getEmployees(req, res) {
     try {
         log.info('employeeController.getEmployees');
@@ -13,31 +23,30 @@ function getEmployees(req, res) {
             var dto = [];
             //reduce the amount of transported data
             employees.forEach(function(employee) {
-                dto.push(new EmployeeCollectionEntry(employee));
+                dto.push(new DTOEmployeeCollectionEntry(employee));
             })
             res.json(dto);
         }).catch(function(dbError) {
+            log.error('database error in employeeController.getEmployees', dbError);
             errorHandler.InternalServerError(dbError, res);
         });
-
     } catch (err) {
-        log.error('error in employeeController.getemployee');
+        log.error('error in employeeController.getEmployees', err);
         errorHandler.InternalServerError(err, res);
     }
 }
 
 function getEmployeeById(req, res) {
     try {
-        log.info('employeeController.getemployee ');
-        employeeDB.getAllEmployees().then(function(employees) {
-            log.verbose(employees);
-            res.json(employees);
+        log.info('employeeController.getEmployeeById ');
+        employeeDB.getEmployeesByUserName('param').then(function(employee) {
+            res.json(employee);
         }).catch(function(dbError) {
+            log.error('database error in employeeController.getEmployeeById', dbError);
             errorHandler.DataNotFound(dbError, res);
         });
-
     } catch (err) {
-        log.debug('error in employeeController.getemployee');
+        log.debug('error in employeeController.getEmployeeById');
         errorHandler.InternalServerError(err, res);
     }
 }
