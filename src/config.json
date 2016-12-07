@@ -11,7 +11,11 @@
     },
 
     "persistence": {
-        "database": "mock",
+        "database": "fakeDB",
+        "fakeDB": {
+            "employeeCount": 2000,
+            "locale": "de"
+        },
         "dynamodb": {
             "config": "no supported yet"
         }

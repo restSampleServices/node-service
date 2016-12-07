@@ -2,7 +2,7 @@
 
 //core logging settings
 var log = require('nodelog')({
-    logLevel: 'warning'
+    level: 'info'
 });
 
 var config = require('./config.json');
@@ -11,7 +11,7 @@ var app = express();
 
 var employeesController = require('./rest/employeesController.js');
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     var endpoints = require('./rest/endpoints.js');
 
     //TODO: return a better support page than than endpoints definition
@@ -23,7 +23,7 @@ function startService(port) {
     log.info('loading controllers...');
     employeesController(app);
     log.info('starting rest service...');
-    var server = app.listen(port, function () {
+    var server = app.listen(port, function() {
 
         var host = server.address().address;
         var port = server.address().port;

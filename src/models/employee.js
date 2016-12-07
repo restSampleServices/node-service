@@ -22,8 +22,8 @@ function Employee(json) {
     if (json !== undefined) {
         _internalData.firstName = json.firstName || _internalData.firstName;
         _internalData.lastName = json.lastName || _internalData.lastName;
-        _internalData.userName = _internalData.firstName.substring(0, 1) + _internalData.lastName;
-        _internalData.email = _internalData.firstName + '.' + _internalData.lastName + '@samplecompany.com';
+        _internalData.userName = (_internalData.firstName.substring(0, 1) + _internalData.lastName).toLowerCase();
+        _internalData.email = (_internalData.firstName + '.' + _internalData.lastName + '@samplecompany.com').toLowerCase();
         _internalData.jobTitle = json.jobTitle || _internalData.jobTitle;
         _internalData.department = json.department || _internalData.department;
         _internalData.imageUrl = json.imageUrl || _internalData.imageUrl;
@@ -43,10 +43,10 @@ function Employee(json) {
     //we encapsulate all properties so that we can add validations
     Object.defineProperty(this, 'firstName', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.firstName;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.firstName = value;
             } else {
@@ -57,10 +57,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'lastName', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.lastName;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.lastName = value;
             } else {
@@ -71,17 +71,17 @@ function Employee(json) {
 
     Object.defineProperty(this, 'fullName', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.firstName + ' ' + _internalData.lastName;
         }
     });
 
     Object.defineProperty(this, 'dateOfBirth', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.dateOfBirth;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.dateOfBirth = value;
             } else {
@@ -92,10 +92,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'email', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.email;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 //TODO validate at sign etc
                 _internalData.email = value;
@@ -107,10 +107,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'phone', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.phone;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.phone = value;
             } else {
@@ -121,10 +121,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'userName', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.userName;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.userName = value;
             } else {
@@ -135,10 +135,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'address', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.address;
         },
-        set: function (value) {
+        set: function(value) {
             if (true) {
                 //TODO check for typeof Address
                 _internalData.address = value;
@@ -150,10 +150,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'imageUrl', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.imageUrl;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.imageUrl = value;
             } else {
@@ -165,10 +165,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'department', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.department;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.department = value;
             } else {
@@ -179,10 +179,10 @@ function Employee(json) {
 
     Object.defineProperty(this, 'jobTitle', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.jobTitle;
         },
-        set: function (value) {
+        set: function(value) {
             if (value !== undefined) {
                 _internalData.jobTitle = value;
             } else {
@@ -193,7 +193,7 @@ function Employee(json) {
 
     Object.defineProperty(this, 'jobHistory', {
         enumerable: true,
-        get: function () {
+        get: function() {
             return _internalData.jobHistory;
         }
     });
