@@ -6,10 +6,22 @@ var log = require('nodelog')({
 });
 
 var config = require('./config.json');
+var endpoints = {
+    apiRoot: '/',
+    employees: {
+        service: '/employees',
+        get_create: '/',
+        getByUserName_update: '/{0}/'
+    }
+}; //require('./endpoints.js');
+
 var express = require('express');
 var app = express();
 
-var employeesController = require('./rest/employeesController.js');
+//employees service / endpoints
+var employeesController = require('./rest/employees/employeesController.js');
+var employeeService = express();
+app.use(endpoints.employees.service, employeeService);
 
 app.get('/', function(req, res) {
     var endpoints = require('./rest/endpoints.js');
@@ -21,7 +33,7 @@ app.get('/', function(req, res) {
 
 function startService(port) {
     log.info('loading controllers...');
-    employeesController(app);
+    employeesController(employeeService);
     log.info('starting rest service...');
     var server = app.listen(port, function() {
 

@@ -3,7 +3,7 @@ var log = require('nodelog')();
 var endpoints = require('./endpoints.js');
 var errorHandler = require('../errorHandler.js');
 
-var employeeDB = require('./../persistence/employeePersistence.js');
+var employeeDB = require('./../../persistence/employeePersistence.js');
 var EmployeeCollectionEntry = require('./dto/employeeCollectionEntry');
 
 function getEmployees(req, res) {
@@ -52,7 +52,7 @@ function updateProduct(req, res) {
 
 function init(app) {
     log.info('initialize employeeController');
-    app.route(endpoints.employees.root)
+    app.route('/')
         .get(getEmployees)
         .post(createProduct)
         .put(updateProduct);
