@@ -76,11 +76,46 @@ function createFakeData() {
             employeesDB.push(e);
         }
     }
+    //define one fixed username for testing and developing purposes
+    employeesDB[employeesDB.length - 1].userName = 'testuser';
     return employeesDB;
-};
+}
 
 createFakeData();
 
-exports.getAllEmployees = function() {
-    return employeesDB
-};
+// **************************************************************************
+// Data Manipulation
+// **************************************************************************
+
+function getAllEmployees() {
+    return employeesDB;
+}
+
+function getEmployeeByUserName(userName) {
+    var retVal;
+    for (let emp of employeesDB) {
+        //db.getAllEmployees().foreach(function(emp) {
+        if (emp.userName === userName) {
+            retVal = emp;
+            break;
+        }
+    }
+    if (retVal === undefined) {
+        throw new Error(userName + ' not found');
+    }
+    return retVal;
+}
+
+function deleteEmployee(userName) {
+    for (var i = 0; i < employeesDB.length; i++) {
+        //db.getAllEmployees().foreach(function(emp) {
+        if (employeesDB[i].userName === userName) {
+            employeesDB.splice(i, 1);
+            break;
+        }
+    }
+}
+
+exports.getEmployeeByUserName = getEmployeeByUserName;
+exports.getAllEmployees = getAllEmployees;
+exports.deleteEmployee = deleteEmployee;

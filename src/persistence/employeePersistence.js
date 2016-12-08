@@ -11,7 +11,7 @@ log.info('initialize employeePersistence module');
 
 function getAllEmployees() {
     log.info('persistence.getAllEmployees');
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         try {
             resolve(db.getAllEmployees());
         } catch (e) {
@@ -22,17 +22,35 @@ function getAllEmployees() {
 
 function getEmployeesByUserName(userName) {
     log.info('persistence.getAllEmployees');
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         try {
-            var employee;
-            for (let emp of db.getAllEmployees()) {
-                //db.getAllEmployees().foreach(function(emp) {
-                if (emp.userName === userName) {
-                    employee = emp;
-                    break;
-                }
-            }
+            var employee = db.getEmployeeByUserName(userName);
             resolve(employee);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+function updateEmployee(userName, updatedData) {
+    log.info('persistence.updateEmployee');
+    return new Promise(function (resolve, reject) {
+        try {
+            var employee = db.getEmployeeByUserName(userName);
+            employee.merge(updatedData);
+            resolve(employee);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
+function deleteEmployee(userName) {
+    log.info('persistence.getAllEmployees');
+    return new Promise(function (resolve, reject) {
+        try {
+            db.deleteEmployee(userName);
+            resolve();
         } catch (e) {
             reject(e);
         }
@@ -54,3 +72,5 @@ function connectDB() {
 connectDB();
 exports.getAllEmployees = getAllEmployees;
 exports.getEmployeesByUserName = getEmployeesByUserName;
+exports.updateEmployee = updateEmployee;
+exports.deleteEmployee = deleteEmployee;
