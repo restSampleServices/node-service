@@ -11,13 +11,9 @@ var config = require('./config.json');
 var express = require('express');
 var app = express();
 
-// ** Initialize root enpoints ** //
-app.get('/help', function (req, res) {
-    //TODO: return a better support page than than endpoints definition
-    //TODO: move to separate file
-    res.send('available services: <br/>/employees/');
-    res.end();
-});
+// ** Initialize middleware ** //
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // for parsing application/json
 
 // ** Initialize Services ** //
 log.info('loading services...');
@@ -30,12 +26,20 @@ if (config.services.employees.enabled) {
     app.use(config.services.employees.endpoints, employeeApp);
 }
 
+// ** Initialize core enpoints ** //
+app.use(express.static(__dirname + '/html')); //link the folder html to "/"
+
+app.get('/help', function (req, res) {
+    //TODO: return a better support page than than endpoints definition
+    //TODO: move to separate file
+    res.send('available services: <br/>/employees/');
+    res.end();
+});
 
 // ** Start Application Server ** //
 function startService(port) {
 
     log.info('starting rest service...');
-    app.use(express.static(__dirname + '/html'));
     app.use(function (err, req, res, next) {
         log.error(err.stack);
         res.status(500).send('Oops, that should not happen... Error 500!');
