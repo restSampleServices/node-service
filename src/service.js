@@ -12,10 +12,11 @@ var express = require('express');
 var app = express();
 
 // ** Initialize root enpoints ** //
-app.get('/', function(req, res) {
+app.get('/help', function (req, res) {
     //TODO: return a better support page than than endpoints definition
     //TODO: move to separate file
-    res.text('available services: <br/>/employees/');
+    res.send('available services: <br/>/employees/');
+    res.end();
 });
 
 // ** Initialize Services ** //
@@ -34,7 +35,13 @@ if (config.services.employees.enabled) {
 function startService(port) {
 
     log.info('starting rest service...');
-    var server = app.listen(port, function() {
+    app.use(express.static(__dirname + '/html'));
+    app.use(function (err, req, res, next) {
+        log.error(err.stack);
+        res.status(500).send('Oops, that should not happen... Error 500!');
+        next();
+    });
+    var server = app.listen(port, function () {
 
         var host = server.address().address;
         var port = server.address().port;
