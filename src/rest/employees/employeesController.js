@@ -40,7 +40,7 @@ function getEmployeesByUserName(req, res) {
     try {
         var userName = req.params.userName;
         if (userName === undefined) throw new Error('missing parameter userName');
-        log.info('employeeController.getEmployeeByUserName {0}', userName);
+        log.info('employeeController.getEmployeeByUserName %s', userName);
         employeeDB.getEmployeesByUserName(userName).then(function (employee) {
             if (employee !== undefined) {
                 res.json(employee);
@@ -48,11 +48,36 @@ function getEmployeesByUserName(req, res) {
                 errorHandler.DataNotFound('user not found: ' + userName, res);
             }
         }).catch(function (dbError) {
-            log.error('database error in employeeController.getEmployeeById', dbError);
+            log.error('database error in employeeController.getEmployeesByUserName', dbError);
             errorHandler.DataNotFound(dbError, res);
         });
     } catch (err) {
-        log.debug('error in employeeController.getEmployeeById');
+        log.debug('error in employeeController.getEmployeesByUserName');
+        errorHandler.InternalServerError(err, res);
+    }
+}
+
+//reads the avatar url from backend and redrirect the request
+function getAvatar(req, res) {
+    try {
+        //TODO: add authorization
+        var userName = req.params.userName;
+        if (userName === undefined) {
+            throw new Error('missing parameter - userName -');
+        }
+        log.info('employeeController.getAvatar %s', userName);
+        employeeDB.getEmployeesByUserName(userName).then(function (employee) {
+            if (employee !== undefined) {
+                res.redirect(employee.imageUrl);
+            } else {
+                errorHandler.DataNotFound('user not found: ' + userName, res);
+            }
+        }).catch(function (dbError) {
+            log.error('database error in employeeController.getAvatar', dbError);
+            errorHandler.DataNotFound(dbError, res);
+        });
+    } catch (err) {
+        log.debug('error in employeeController.getAvatar');
         errorHandler.InternalServerError(err, res);
     }
 }
@@ -72,7 +97,7 @@ function updateEmployee(req, res) {
         if (userName === undefined) {
             throw new Error('missing parameter - userName -');
         }
-        log.info('employeeController.updateEmployee {0}', userName);
+        log.info('employeeController.updateEmployee %s', userName);
         employeeDB.getEmployeesByUserName(userName).then(function (employee) {
             if (employee !== undefined) {
                 res.json(employee);
@@ -89,6 +114,7 @@ function updateEmployee(req, res) {
     }
 }
 
+
 function init(app) {
     log.info('initialize employeeController');
     app.route('/')
@@ -97,6 +123,8 @@ function init(app) {
     app.route('/:userName')
         .get(getEmployeesByUserName)
         .put(updateEmployee);
+    app.route('/:userName/avatar')
+        .get(getAvatar);
 }
 
 
