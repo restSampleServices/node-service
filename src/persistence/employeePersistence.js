@@ -15,7 +15,7 @@ function getAllEmployees() {
         try {
             resolve(db.getAllEmployees());
         } catch (e) {
-            reject(e)
+            reject(e);
         }
     });
 }
@@ -34,7 +34,7 @@ function getEmployeesByUserName(userName) {
             }
             resolve(employee);
         } catch (e) {
-            reject(e)
+            reject(e);
         }
     });
 }
