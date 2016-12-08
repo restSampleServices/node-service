@@ -2,6 +2,7 @@
 
     "node": true, //nodejs,
     "browser": false, //browser support
+    "esnext": true,
 
     "strict": true, //use strict is a must (alternate implied)
     "undef": true, //error if undefined vars
