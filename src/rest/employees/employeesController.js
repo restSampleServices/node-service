@@ -24,7 +24,7 @@ function getEmployees(req, res) {
             //reduce the amount of transported data
             employees.forEach(function (employee) {
                 dto.push(new DTOEmployeeCollectionEntry(employee));
-            })
+            });
             res.json(dto);
         }).catch(function (dbError) {
             log.error('database error in employeeController.getEmployees', dbError);
@@ -39,18 +39,22 @@ function getEmployees(req, res) {
 function getEmployeesByUserName(req, res) {
     try {
         var userName = req.params.userName;
-        if (userName === undefined) throw new Error('missing parameter userName');
+        if (userName === undefined) {
+            throw new Error('missing parameter userName');
+        }
         log.info('employeeController.getEmployeeByUserName %s', userName);
-        employeeDB.getEmployeesByUserName(userName).then(function (employee) {
-            if (employee !== undefined) {
-                res.json(employee);
-            } else {
-                errorHandler.DataNotFound('user not found: ' + userName, res);
-            }
-        }).catch(function (dbError) {
-            log.error('database error in employeeController.getEmployeesByUserName', dbError);
-            errorHandler.DataNotFound(dbError, res);
-        });
+        employeeDB.getEmployeesByUserName(userName)
+            .then(function (employee) {
+                if (employee !== undefined) {
+                    res.json(employee);
+                } else {
+                    errorHandler.DataNotFound('user not found: ' + userName, res);
+                }
+            })
+            .catch(function (dbError) {
+                log.error('database error in employeeController.getEmployeesByUserName', dbError);
+                errorHandler.DataNotFound(dbError, res);
+            });
     } catch (err) {
         log.debug('error in employeeController.getEmployeesByUserName');
         errorHandler.InternalServerError(err, res);
@@ -82,47 +86,64 @@ function getAvatar(req, res) {
     }
 }
 
-function createProduct(req, res) {
-    res.status(404).send('comming soon');
-}
-
 function updateEmployee(req, res) {
     try {
         //TODO: add authorization
         var userName = req.params.userName;
-        var json = req.body;
-        console.log(req.nody);
-
-        log.important(json);
-        if (userName === undefined) {
-            throw new Error('missing parameter - userName -');
-        }
+        var updatedEmployee = req.body;
         log.info('employeeController.updateEmployee %s', userName);
-        employeeDB.getEmployeesByUserName(userName).then(function (employee) {
-            if (employee !== undefined) {
+
+        if (userName === undefined || updatedEmployee === undefined) {
+            throw new Error('missing parameter - userName - or the payload');
+        }
+        employeeDB.updateEmployee(userName, updatedEmployee)
+            .then(function (employee) {
                 res.json(employee);
-            } else {
-                errorHandler.DataNotFound('user not found: ' + userName, res);
-            }
-        }).catch(function (dbError) {
-            log.error('database error in employeeController.getEmployeeById', dbError);
-            errorHandler.DataNotFound(dbError, res);
-        });
+            })
+            .catch(function (dbError) {
+                log.error(dbError);
+                errorHandler.DataNotFound(dbError, res);
+            });
     } catch (err) {
-        log.debug('error in employeeController.getEmployeeById');
+        log.debug('error in employeeController.updateEmployee');
         errorHandler.InternalServerError(err, res);
     }
 }
 
+function deleteEmployee(req, res) {
+    try {
+        var userName = req.params.userName;
+        if (userName === undefined) {
+            throw new Error('missing parameter userName');
+        }
+        log.info('employeeController.deleteEmployee %s', userName);
+        employeeDB.deleteEmployee(userName)
+            .then(function () {
+                res.end();
+            })
+            .catch(function (dbError) {
+                log.error('database error in employeeController.getEmployeesByUserName', dbError);
+                errorHandler.DataNotFound(dbError, res);
+            });
+    } catch (err) {
+        log.debug('error in employeeController.getEmployeesByUserName');
+        errorHandler.InternalServerError(err, res);
+    }
+}
+
+function createEmployee(req, res) {
+    res.status(404).send('comming soon');
+}
 
 function init(app) {
     log.info('initialize employeeController');
     app.route('/')
         .get(getEmployees)
-        .post(createProduct);
+        .post(createEmployee);
     app.route('/:userName')
         .get(getEmployeesByUserName)
-        .put(updateEmployee);
+        .put(updateEmployee)
+        .delete(deleteEmployee);
     app.route('/:userName/avatar')
         .get(getAvatar);
 }
