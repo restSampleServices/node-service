@@ -14,17 +14,28 @@ function Job(json) {
         address: undefined
     };
 
-    if (json !== undefined) {
-        _internalData.companyName = json.companyName || _internalData.companyName;
-        _internalData.department = json.department || _internalData.department;
-        _internalData.jobTitle = json.jobTitle || _internalData.jobTitle;
-        _internalData.dateStart = json.dateStart || _internalData.dateStart;
-        _internalData.dateEnd = json.dateEnd || _internalData.dateEnd;
-        if (json.address !== undefined) {
-            _internalData.address = new Address(json.address);
+    this.merge = function (json) {
+        if (json !== undefined) {
+            _internalData.companyName = json.companyName || _internalData.companyName;
+            _internalData.department = json.department || _internalData.department;
+            _internalData.jobTitle = json.jobTitle || _internalData.jobTitle;
+            _internalData.dateStart = json.dateStart || _internalData.dateStart;
+            _internalData.dateEnd = json.dateEnd || _internalData.dateEnd;
+            
+            //check for an updated address or a nw one
+            if (json.address !== undefined) {
+                if (json.address instanceof Address) {
+                    _internalData.address = json.address;
+                } else if (_internalData.address instanceof Address) {
+                    _internalData.address.merge(json.address);
+                } else {
+                    _internalData.address = new Address(json.address);
+                }
+            }
         }
-    }
+    };
 
+    this.merge(json);
 
 
     //we encapsulate all properties so that we can add validations

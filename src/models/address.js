@@ -16,16 +16,19 @@ function Address(json) {
         }
     };
 
-    if (json !== undefined) {
-        _internalData.country = json.country || _internalData.country;
-        _internalData.city = json.city || _internalData.city;
-        _internalData.state = json.state || _internalData.state;
-        _internalData.zipcode = json.zipcode || _internalData.zipcode;
-        _internalData.street = json.street || _internalData.street;
-        _internalData.street2 = json.street2 || _internalData.street2;
-        _internalData.geo = json.geo || _internalData.geo;
-    }
+    this.merge = function (json) {
+        if (json !== undefined) {
+            _internalData.country = json.country || _internalData.country;
+            _internalData.city = json.city || _internalData.city;
+            _internalData.state = json.state || _internalData.state;
+            _internalData.zipcode = json.zipcode || _internalData.zipcode;
+            _internalData.street = json.street || _internalData.street;
+            _internalData.street2 = json.street2 || _internalData.street2;
+            _internalData.geo = json.geo || _internalData.geo;
+        }
+    };
 
+    this.merge(json);
 
 
     //we encapsulate all properties so that we can add validations
