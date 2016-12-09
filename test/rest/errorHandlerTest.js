@@ -4,7 +4,7 @@ var assert = chai.assert; //http://chaijs.com/api/assert/
 var expect = chai.expect; //http://chaijs.com/api/bdd/#method_language-chains
 
 var httpMocks = require('node-mocks-http'); //doc: https://github.com/howardabrams/node-mocks-http
-var errorHandler = require('../../src/errorHandler.js');
+var errorHandler = require('../../src/rest/errorHandler.js');
 
 describe('rest', function () {
 
@@ -100,7 +100,7 @@ describe('rest', function () {
                         eventEmitter: require('events').EventEmitter
                     });
                     //capture the send event to see the switched status
-                    response.on('send', () => {
+                    response.on('send', function () {
                         expect(response.statusCode).to.equal(404);
                         done();
                     });
@@ -118,7 +118,7 @@ describe('rest', function () {
                         eventEmitter: require('events').EventEmitter
                     });
                     //capture the send event to see the switched status
-                    response.on('send', () => {
+                    response.on('send', function () {
                         expect(response._getData()).to.include(errorPages.P404);
                         done();
                     });

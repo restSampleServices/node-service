@@ -5,8 +5,21 @@ engines:
     config:
       languages:
       - javascript
+    checks:
+      Similar code:
+        enabled: false
+    exclude_fingerprints:
+    - a17390f8cce54fd9567b8b5c2060e366
+    - 4bd911d1564f475dc63e3db42d569842
+    - 971b4ecf50e7627496065f59fa5ecfaa
+    - 06d2ebd75fe08c3e06f2a9f52adec188
   eslint:
     enabled: true
+    exclude_fingerprints:
+    - a903bf364dfc9d51652ca69732a2c072
+    - 45f8134c0f4542454931906d809ce562
+    - a7509c97bc4938b055ed3b1ee7f3f1ea
+    
   fixme:
     enabled: true
 ratings:

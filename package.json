@@ -1,6 +1,6 @@
 {
     "name": "restSampleServicese",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "sample rest services for training of client developers",
     "main": "index.js",
     "directories": {
@@ -12,11 +12,9 @@
         "stylecheck": "./node_modules/jshint/bin/jshint --reporter=node_modules/jshint-stylish src/*.js",
         "build": "node ./node_modules/gulp/bin/gulp ci"
     },
-
     "engines": {
         "node": ">4"
     },
-
     "repository": {
         "type": "git",
         "url": "https://github.com/restSampleServices/node-service.git"
@@ -37,17 +35,17 @@
     "tutorial",
     "sample"
   ],
-
     "dependencies": {
+        "body-parser": "^1.15.2",
         "cli-color": "^1.1.0",
         "express": "^4.13.4",
+        "faker": "^3.1.0",
         "nodelog": "^0.3.0"
     },
     "devDependencies": {
         "asciidoctor.js": "^1.5.5-1",
         "chai": "^3.5.0",
         "del": "^2.2.0",
-        "faker": "^3.1.0",
         "gulp": "^3.9.1",
         "gulp-asciidoctor": "^1.0.7",
         "gulp-autoprefixer": "^3.1.0",

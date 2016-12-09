@@ -1,19 +1,29 @@
 {
-    "productName": "Sample Service",
-    "technicalProductName": "sampleService",
+    "productName": "Rest Sample Services",
+    "technicalProductName": "restSampleServices",
     "version": {
         "major": 0,
-        "minor": 1
+        "minor": 2
     },
 
     "server": {
         "port": 8081
     },
 
-    "persistence": {
-        "database": "mock",
-        "dynamodb": {
-            "config": "no supported yet"
+    "services": {
+        "employees": {
+            "enabled": true,
+            "endpoints": ["/employees", "/mitarbeiter"],
+            "persistence": {
+                "database": "fakeDB",
+                "fakeDB": {
+                    "employeeCount": 2000,
+                    "locale": "de"
+                },
+                "dynamodb": {
+                    "config": "no supported yet"
+                }
+            }
         }
     }
 }
