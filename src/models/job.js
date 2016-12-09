@@ -111,7 +111,7 @@ function Job(json) {
             return _internalData.address;
         },
         set: function (value) {
-            if (true) {
+            if (value instanceof Address) {
                 //TODO check for typeof Address
                 _internalData.address = value;
             } else {
@@ -123,7 +123,9 @@ function Job(json) {
 
 //creates a list on job objects based on a job json
 Job.createList = function (json) {
-    if (Array.isArray(json) === false) throw new Error('create list needs an array as input');
+    if (Array.isArray(json) === false) {
+        throw new Error('create list needs an array as input');
+    }
     var jh = [];
     json.forEach(function (jobJson) {
         jh.push(new Job(jobJson));

@@ -22,7 +22,7 @@ function validateUserNameParam(req) {
         throw new Error('missing parameter userName');
     }
     return {
-        userName: userName,
+        userName: userName
     };
 }
 
