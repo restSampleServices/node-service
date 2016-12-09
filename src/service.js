@@ -1,5 +1,5 @@
 'use strict';
-const path = require('path');
+var path = require('path');
 
 //core logging settings
 var log = require('nodelog')({

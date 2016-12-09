@@ -1,7 +1,7 @@
 'use strict';
 var log = require('nodelog')();
 var fs = require('fs');
-const path = require('path');
+var path = require('path');
 
 log.info('loading generic error handler');
 
