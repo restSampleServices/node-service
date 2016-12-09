@@ -56,13 +56,12 @@ http://localhost:8081/employees/testuser/
 ### GET /
 Delivers a list of all employees in a shorten form. You will recieve an array of user like this:
 
-`````
-{
-   firstName: "Jon",
-   lastName: "Doe",
-   userName: jdoe
-}
-`````
+    {
+       firstName: "Jon",
+       lastName: "Doe",
+       userName: jdoe
+    }
+
 
 ### GET /{username}/
 Here you will recieve all data of the dedicated user.
@@ -78,16 +77,15 @@ The PUT reuqest allows you to modify the user, except the jobHistory. All Data w
 
 The call returns the modified Employee Object as it is stored in teh backend after the update.
 
-Note: if you modify the username, then you have to change the url for the next modification.
+> Note: if you modify the username, then you have to change the url for the next modification.
 
 Sample payload to modify the firstName and an address attribute:
 
-`````
-{
-  "firstName": "Sample",
-    "address": { "street2": "5. Floor"}
-}
-``````
+    {
+      "firstName": "Sample",
+      "address": { "street2": "5. Floor"}
+    }
+
 
 ### DELETE /{username}/
 Will delete the user from the database. There is no undo, but new users are created on restart.
