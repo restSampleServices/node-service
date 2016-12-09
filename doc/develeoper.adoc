@@ -3,11 +3,11 @@ How to Build restSampleServices
 
 Development Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~
-1. Install NodeJS 4.x
-2. Exceute the following lines in the project root directory:
+1. Clone the repository
+2. Install NodeJS 4.x or higher
+3. Exceute the following lines in the project root directory:
 [source,bash]
 -------------
-npm install grunt-cli -g
 npm install
 -------------
 
@@ -28,10 +28,31 @@ A quick overview about the project folder structure.
 |setupEnv.sh   |a helper for setting up the build environment
 |===========================
 
+Docker
+~~~~~~
+
+Create and publish the image manually:
+[source,bash]
+-------------
+docker build -t yourusername/imagename .
+docker push yourusername/imagename
+-------------
+
+Build and execute for local testing:
+[source,bash]
+-------------
+docker build -t local/restsampleservices .
+docker run [-d] -p 8081:8081 --name rss local/restsampleservices
+
+docker logs rss
+docker stop rss
+docker start rss
+
+-------------
+
 
 Additional Information & Links
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Nodejs: https://nodejs.org/en/download/
-* more grunt packages here: https://www.npmjs.com/package/
 * ascii doc help: http://asciidoc.org/
 * ascii doc editor: https://asciidoclive.com/
