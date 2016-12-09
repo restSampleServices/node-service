@@ -7,6 +7,9 @@
 var log = require('nodelog')();
 var errorHandler = require('../errorHandler.js');
 
+log.info('loading employeesController');
+
+// ** rest service includes
 var endpoints = require('./endpoints.js');
 
 // ** connection to persistence and database
@@ -36,14 +39,14 @@ function getEmployees(req, res) {
     }
 }
 
-function getEmployeesByUserName(req, res) {
+function getEmployeeByUserName(req, res) {
     try {
         var userName = req.params.userName;
         if (userName === undefined) {
             throw new Error('missing parameter userName');
         }
         log.info('employeeController.getEmployeeByUserName %s', userName);
-        employeeDB.getEmployeesByUserName(userName)
+        employeeDB.getEmployeeByUserName(userName)
             .then(function (employee) {
                 if (employee !== undefined) {
                     res.json(employee);
@@ -52,11 +55,11 @@ function getEmployeesByUserName(req, res) {
                 }
             })
             .catch(function (dbError) {
-                log.error('database error in employeeController.getEmployeesByUserName', dbError);
+                log.error('database error in employeeController.getEmployeeByUserName', dbError);
                 errorHandler.DataNotFound(dbError, res);
             });
     } catch (err) {
-        log.debug('error in employeeController.getEmployeesByUserName');
+        log.debug('error in employeeController.getEmployeeByUserName');
         errorHandler.InternalServerError(err, res);
     }
 }
@@ -70,7 +73,7 @@ function getAvatar(req, res) {
             throw new Error('missing parameter - userName -');
         }
         log.info('employeeController.getAvatar %s', userName);
-        employeeDB.getEmployeesByUserName(userName).then(function (employee) {
+        employeeDB.getEmployeeByUserName(userName).then(function (employee) {
             if (employee !== undefined) {
                 res.redirect(employee.imageUrl);
             } else {
@@ -122,11 +125,11 @@ function deleteEmployee(req, res) {
                 res.end();
             })
             .catch(function (dbError) {
-                log.error('database error in employeeController.getEmployeesByUserName', dbError);
+                log.error('database error in employeeController.getEmployeeByUserName', dbError);
                 errorHandler.DataNotFound(dbError, res);
             });
     } catch (err) {
-        log.debug('error in employeeController.getEmployeesByUserName');
+        log.debug('error in employeeController.getEmployeeByUserName');
         errorHandler.InternalServerError(err, res);
     }
 }
@@ -141,7 +144,7 @@ function init(app) {
         .get(getEmployees)
         .post(createEmployee);
     app.route(endpoints.byUserName.root)
-        .get(getEmployeesByUserName)
+        .get(getEmployeeByUserName)
         .put(updateEmployee)
         .delete(deleteEmployee);
     app.route(endpoints.byUserName.avatar)

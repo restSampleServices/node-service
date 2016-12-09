@@ -3,6 +3,7 @@ var exports = module.exports = {};
 
 var log = require('nodelog')();
 var config = require('../config.json').services.employees;
+var Job = require('../models/job');
 var Employee = require('../models/employee');
 var faker = require('faker');
 
@@ -12,10 +13,10 @@ if (config.persistence.fakeDB.locale !== undefined) {
     faker.locale = config.persistence.fakeDB.locale;
 }
 
-var employeesDB;
+var employeeDB;
 
 //todo extract persistence to separate file for faker, mock and dynamo/couch
-function createAddress() {
+function provisionCreateAddress() {
     var street2;
 
     //randomize the street2 attribute
@@ -37,7 +38,7 @@ function createAddress() {
 }
 
 
-function createJobHistory(dateOfBirth) {
+function provisionCreateJobHistory(dateOfBirth) {
     var jh = [];
     //TODO: create maximum age-18 / 2 jobs
     //use a randomized count between 0 and 7
@@ -48,19 +49,19 @@ function createJobHistory(dateOfBirth) {
         //TODO date end can be maximum today - 4 weeks
         var de = faker.date.future(20, new Date(ds));
         jh.push({
-            id: i + 1,
+            id: (i + 1) + '',
             companyName: faker.company.companyName() + ' ' + faker.company.companySuffix(),
             department: faker.name.jobArea(),
             jobTitle: faker.name.title(),
             dateStart: ds,
             dateEnd: de,
-            address: createAddress()
+            address: provisionCreateAddress()
         });
     }
     return jh;
 }
 
-function createEmployee() {
+function provisionCreateEmployee() {
     var dob = faker.date.past(40, new Date('Sat Apr 01 1998 21:35:02 GMT+0200 (CEST)'));
     return {
         firstName: faker.name.firstName(),
@@ -72,23 +73,23 @@ function createEmployee() {
         department: faker.name.jobArea(),
         dateOfBirth: dob,
 
-        address: createAddress(),
-        jobHistory: createJobHistory(dob)
+        address: provisionCreateAddress(),
+        jobHistory: provisionCreateJobHistory(dob)
     };
 }
 
 function createFakeData() {
     log.info('fakeDB.createFakeData');
-    if (employeesDB === undefined) {
-        employeesDB = [];
+    if (employeeDB === undefined) {
+        employeeDB = [];
         for (var i = 0; i < config.persistence.fakeDB.employeeCount; i++) {
-            var e = new Employee(createEmployee());
-            employeesDB.push(e);
+            var e = new Employee(provisionCreateEmployee());
+            employeeDB.push(e);
         }
     }
     //define one fixed username for testing and developing purposes
-    employeesDB[employeesDB.length - 1].userName = 'testuser';
-    return employeesDB;
+    employeeDB[employeeDB.length - 1].userName = 'testuser';
+    return employeeDB;
 }
 
 createFakeData();
@@ -98,34 +99,100 @@ createFakeData();
 // **************************************************************************
 
 function getAllEmployees() {
-    return employeesDB;
+    return employeeDB;
 }
 
-function getEmployeeByUserName(userName) {
+//returnUndefined not set or false --> function will throw an error if user was not found 
+function getEmployeeByUserName(userName, returnUndefined) {
+    log.info('database.getEmployeeByUserName');
+
     var retVal;
-    for (let emp of employeesDB) {
+    for (let emp of employeeDB) {
         //db.getAllEmployees().foreach(function(emp) {
         if (emp.userName === userName) {
             retVal = emp;
             break;
         }
     }
-    if (retVal === undefined) {
+    if (retVal === undefined && !returnUndefined) {
         throw new Error(userName + ' not found');
     }
     return retVal;
 }
 
+function getJobByUserNameAndId(userName, jobId) {
+    log.info('database.getJobByUserNameAndId');
+
+    var retVal;
+    var jh = getEmployeeByUserName(userName).jobHistory;
+    for (let job of jh) {
+        log.debug('check ', JSON.stringify(job));
+        if (job.id === jobId) {
+            log.debug('found job');
+            retVal = job;
+            break;
+        }
+    }
+    if (retVal === undefined) {
+        throw new Error('user ' + userName + ' has no job ' + jobId + '');
+    }
+    return retVal;
+}
+
+function createEmployee(employee) {
+    log.info('database.createEmployee');
+    if (employee instanceof Employee) {
+        if (getEmployeeByUserName(employee.userName, true) !== undefined) {
+            throw new Error('a user with the specified username already exists');
+        }
+        employeeDB.push(employee);
+    } else {
+        throw new Error('expected Employee object');
+    }
+
+}
+
 function deleteEmployee(userName) {
-    for (var i = 0; i < employeesDB.length; i++) {
+    log.info('database.deleteEmployee');
+
+    for (var i = 0; i < employeeDB.length; i++) {
         //db.getAllEmployees().foreach(function(emp) {
-        if (employeesDB[i].userName === userName) {
-            employeesDB.splice(i, 1);
+        if (employeeDB[i].userName === userName) {
+            employeeDB.splice(i, 1);
             break;
         }
     }
 }
 
+function createJob(userName, job) {
+    log.info('database.createEmployee');
+    if (job instanceof Job) {
+        var jh = getEmployeeByUserName(userName).jobHistory;
+        jh.push(job);
+    } else {
+        throw new Error('expected Employee object');
+    }
+
+}
+
+function deleteJob(userName, jobId) {
+    log.info('database.deleteJob');
+
+    var jh = getEmployeeByUserName(userName).jobHistory;
+    for (var i = 0; i < jh.length; i++) {
+        if (jh[i].id === jobId) {
+            jh.splice(i, 1);
+            break;
+        }
+    }
+}
+
+//TODO: create a object for database instead of module
 exports.getEmployeeByUserName = getEmployeeByUserName;
 exports.getAllEmployees = getAllEmployees;
+exports.createEmployee = createEmployee;
 exports.deleteEmployee = deleteEmployee;
+
+exports.getJobByUserNameAndId = getJobByUserNameAndId;
+exports.createJob = createJob;
+exports.deleteJob = deleteJob;
