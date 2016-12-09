@@ -156,8 +156,7 @@ function Employee(json) {
             return _internalData.address;
         },
         set: function (value) {
-            if (true) {
-                //TODO check for typeof Address
+            if (value instanceof Address) {
                 _internalData.address = value;
             } else {
                 throw new Error('invalid data type for address');

@@ -20,4 +20,4 @@ function EmployeeCollectionEntry(employee) {
     });
 }
 
-module.exports = EmployeeCollectionEntry;;
+module.exports = EmployeeCollectionEntry;

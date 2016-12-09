@@ -42,8 +42,8 @@ function createEmployee(json) {
             var e = new Employee(json);
             db.createEmployee(e);
             resolve(e);
-        } catch (e) {
-            reject(e);
+        } catch (error) {
+            reject(error);
         }
     });
 }

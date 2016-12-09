@@ -112,7 +112,6 @@ function Job(json) {
         },
         set: function (value) {
             if (value instanceof Address) {
-                //TODO check for typeof Address
                 _internalData.address = value;
             } else {
                 throw new Error('invalid data type for address');

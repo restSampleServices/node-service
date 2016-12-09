@@ -8,6 +8,8 @@ engines:
     checks:
       Similar code:
         enabled: false
+    exclude_fingerprints:
+    - a17390f8cce54fd9567b8b5c2060e366
   eslint:
     enabled: true
     exclude_fingerprints:

@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 
 //core logging settings
 var log = require('nodelog')({
@@ -27,7 +28,7 @@ if (config.services.employees.enabled) {
 }
 
 // ** Initialize core enpoints ** //
-app.use(express.static(__dirname + '/html')); //link the folder html to "/"
+app.use(express.static(path.join(__dirname, 'html'))); //link the folder html to "/"
 
 app.get('/help', function (req, res) {
     //TODO: return a better support page than than endpoints definition

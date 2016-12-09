@@ -53,6 +53,5 @@ function handleError404(err, res) {
     }
 }
 
-//TODO Function Doc
 exports.InternalServerError = handleError500;
 exports.DataNotFound = handleError404;
