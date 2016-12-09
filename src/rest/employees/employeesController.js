@@ -137,14 +137,14 @@ function createEmployee(req, res) {
 
 function init(app) {
     log.info('initialize employeeController');
-    app.route('/')
+    app.route(endpoints.getAll)
         .get(getEmployees)
         .post(createEmployee);
-    app.route('/:userName')
+    app.route(endpoints.byUserName.root)
         .get(getEmployeesByUserName)
         .put(updateEmployee)
         .delete(deleteEmployee);
-    app.route('/:userName/avatar')
+    app.route(endpoints.byUserName.avatar)
         .get(getAvatar);
 }
 
