@@ -16,12 +16,19 @@ var employeesDB;
 
 //todo extract persistence to separate file for faker, mock and dynamo/couch
 function createAddress() {
+    var street2;
+
+    //randomize the street2 attribute
+    if (Math.floor(Math.random() * 10) + 1 > 5) {
+        street2 = faker.address.secondaryAddress();
+    }
+
     return {
         country: faker.address.country(),
         city: faker.address.city(),
         zipcode: faker.address.zipCode(),
         street: faker.address.streetAddress(),
-        street2: faker.address.secondaryAddress(),
+        street2: street2,
         geo: {
             latitude: faker.address.latitude(),
             longitude: faker.address.longitude()
@@ -30,15 +37,18 @@ function createAddress() {
 }
 
 
-function createJobHistory() {
+function createJobHistory(dateOfBirth) {
     var jh = [];
-    //TODO use a randomized count between 0 and 7
-    for (var i = 0; i < 10; i++) {
+    //TODO: create maximum age-18 / 2 jobs
+    //use a randomized count between 0 and 7
+    var companycount = Math.floor(Math.random() * 7) /*+ 1 activate if we want at least one*/ ;
+    for (var i = 0; i < companycount; i++) {
         //TODO date start should be min last year
         var ds = faker.date.past(40, new Date());
         //TODO date end can be maximum today - 4 weeks
         var de = faker.date.future(20, new Date(ds));
         jh.push({
+            id: i + 1,
             companyName: faker.company.companyName() + ' ' + faker.company.companySuffix(),
             department: faker.name.jobArea(),
             jobTitle: faker.name.title(),
@@ -51,19 +61,19 @@ function createJobHistory() {
 }
 
 function createEmployee() {
+    var dob = faker.date.past(40, new Date('Sat Apr 01 1998 21:35:02 GMT+0200 (CEST)'));
     return {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         phone: faker.phone.phoneNumber(),
-        //email: faker.internet.email(),
 
         imageUrl: faker.image.avatar(),
         jobTitle: faker.name.title(),
         department: faker.name.jobArea(),
-        dateOfBirth: faker.date.past(40, new Date('Sat Apr 01 1998 21:35:02 GMT+0200 (CEST)')),
+        dateOfBirth: dob,
 
         address: createAddress(),
-        jobHistory: createJobHistory()
+        jobHistory: createJobHistory(dob)
     };
 }
 

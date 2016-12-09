@@ -6,6 +6,7 @@ function Job(json) {
 
 
     var _internalData = {
+        id: '',
         companyName: '',
         department: '',
         jobTitle: '',
@@ -16,13 +17,15 @@ function Job(json) {
 
     this.merge = function (json) {
         if (json !== undefined) {
+            _internalData.id = json.id || _internalData.id;
+
             _internalData.companyName = json.companyName || _internalData.companyName;
             _internalData.department = json.department || _internalData.department;
             _internalData.jobTitle = json.jobTitle || _internalData.jobTitle;
             _internalData.dateStart = json.dateStart || _internalData.dateStart;
             _internalData.dateEnd = json.dateEnd || _internalData.dateEnd;
-            
-            //check for an updated address or a nw one
+
+            //check for an updated address or a new one
             if (json.address !== undefined) {
                 if (json.address instanceof Address) {
                     _internalData.address = json.address;
@@ -39,6 +42,13 @@ function Job(json) {
 
 
     //we encapsulate all properties so that we can add validations
+    Object.defineProperty(this, 'id', {
+        enumerable: true,
+        get: function () {
+            return _internalData.id;
+        }
+    });
+
     Object.defineProperty(this, 'companyName', {
         enumerable: true,
         get: function () {
