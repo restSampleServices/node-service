@@ -34,8 +34,8 @@ Docker
 Create and publish the image manually:
 [source,bash]
 -------------
-docker build -t blndev/restsampleservices .
-docker push blndev/restsampleservices
+docker build -t yourusername/imagename .
+docker push yourusername/imagename
 -------------
 
 Build and execute for local testing:
