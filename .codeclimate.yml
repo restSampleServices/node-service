@@ -2,12 +2,12 @@
 engines:
   duplication:
     enabled: true
+    config:
+      languages:
+      - javascript
     checks:
       Similar code:
         enabled: false
-  config:
-    languages:
-    - javascript
   eslint:
     enabled: true
     exclude_fingerprints:
