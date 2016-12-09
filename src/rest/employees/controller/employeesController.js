@@ -5,18 +5,18 @@
 
 // ** global includes
 var log = require('nodelog')();
-var errorHandler = require('../errorHandler.js');
+var errorHandler = require('../../errorHandler.js');
 
 log.info('loading employeesController');
 
 // ** rest service includes
-var endpoints = require('./endpoints.js');
+var endpoints = require('./../endpoints.js');
 
 // ** connection to persistence and database
-var employeeDB = require('./../../persistence/employeePersistence.js');
+var employeeDB = require('./../../../persistence/employeePersistence.js');
 
 // ** transport related models
-var DTOEmployeeCollectionEntry = require('./dto/employeeCollectionEntry');
+var DTOEmployeeCollectionEntry = require('./../dto/employeeCollectionEntry');
 
 //send all employees as dto employee colletion entry to caller
 function getEmployees(req, res) {

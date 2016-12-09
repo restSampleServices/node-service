@@ -2,8 +2,8 @@
 var log = require('nodelog')();
 log.info('loading employee service');
 
-var employeesController = require('./employeesController');
-var jobHistoryController = require('./jobHistoryController');
+var employeesController = require('./controller/employeesController');
+var jobHistoryController = require('./controller/jobHistoryController');
 
 function init(app) {
     log.info('initialize employee service');

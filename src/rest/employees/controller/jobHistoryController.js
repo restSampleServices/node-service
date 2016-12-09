@@ -5,15 +5,15 @@
 
 // ** global includes
 var log = require('nodelog')();
-var errorHandler = require('../errorHandler.js');
+var errorHandler = require('../../errorHandler.js');
 
 log.info('loading jobHistoryController');
 
 // ** rest service includes
-var endpoints = require('./endpoints.js');
+var endpoints = require('./../endpoints.js');
 
 // ** connection to persistence and database
-var employeeDB = require('./../../persistence/employeePersistence.js');
+var employeeDB = require('./../../../persistence/employeePersistence.js');
 
 
 function validateUserNameParam(req) {
