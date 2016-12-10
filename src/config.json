@@ -18,7 +18,7 @@
                 "database": "fakeDB",
                 "fakeDB": {
                     "employeeCount": 2000,
-                    "locale": "de"
+                    "locale": "en"
                 },
                 "dynamodb": {
                     "config": "no supported yet"
