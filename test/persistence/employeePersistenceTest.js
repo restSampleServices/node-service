@@ -71,42 +71,48 @@ describe('Persistence', function () {
             });
         });
 
-        xdescribe('development db', function () {
+        describe('CRUD', function () {
 
-            // mock the configuration to use dev db
-            var productDB, product;
+            // mock the configuration to use small fakedb
+            var employeeDB;
+            var testEmployeeCount = 10;
             before(function () {
+                this.timeout(10000);
 
                 mockRequire('../../src/config.json', {
-                    "productName": "Version Service",
-                    "technicalProductName": "versionService",
-                    "persistence": {
-                        "database": "mock",
-                        "dynamodb": {
-                            "config": "no supported yet"
+                    "services": {
+                        "employees": {
+                            "enabled": true,
+                            "endpoints": ["/employees", "/mitarbeiter"],
+                            "persistence": {
+                                "database": "fakeDB",
+                                "fakeDB": {
+                                    "employeeCount": testEmployeeCount,
+                                    "locale": "en"
+                                },
+                                "dynamodb": {
+                                    "config": "no supported yet"
+                                }
+                            }
                         }
+
                     }
                 });
 
-                productDB = require('../../src/persistence/productPersistence.js');
-                product = require('../../src/models/product.js');
+                employeeDB = require('../../src/persistence/employeePersistence');
 
-                //var appToTest = require('../src/service.js');
             });
 
             after(function () {
                 mockRequire.stop('../../src/config.json');
             });
 
-            it('devdb.getAllProducts is async', function () {
-                assert.instanceOf(productDB.getAllProducts(), Promise);
-            });
+            it('getAllEmployees delivers list of Employee', function (done) {
+                //ISSUE: fakeDB already created??
 
-            it('devdb.getAllProducts delivers correct model', function (done) {
-                productDB.getAllProducts().then(function (products) {
-                    assert.isArray(products);
-                    //TODO: Check all Model of Array Members here
-                    assert.instanceOf(products[0], product, 'first element of products is not a product');
+                employeeDB.getAllEmployees().then(function (emps) {
+                    assert.isArray(emps);
+                    assert.equal(emps.length, testEmployeeCount, 'a different amaount of entries are created');
                     done();
                 }).catch(function (err) {
                     assert.fail(err);
@@ -115,48 +121,5 @@ describe('Persistence', function () {
             });
         });
 
-        xdescribe('dynamodb', function () {
-            var productDB, product;
-            // mock the configuration to use dynamo db db
-
-            before(function () {
-
-                mockRequire('../../src/config.json', {
-                    "productName": "Version Service",
-                    "technicalProductName": "versionService",
-                    "persistence": {
-                        "database": "DynamoDB",
-                        "dynamodb": {
-                            "config": "no supported yet"
-                        }
-                    }
-                });
-
-                productDB = require('../../src/persistence/productPersistence.js');
-                product = require('../../src/models/product.js');
-
-                //var appToTest = require('../src/service.js');
-            });
-
-            after(function () {
-                mockRequire.stop('../../src/config.json');
-            });
-
-            it('dynamodb.getAllProducts is async', function () {
-                assert.instanceOf(productDB.getAllProducts(), Promise);
-            });
-
-            xit('dynamodb.getAllProducts delivers correct model', function (done) {
-                productDB.getAllProducts().then(function (products) {
-                    assert.isArray(products);
-                    //TODO: Check the Model of Array Members here
-
-                    done();
-                }).catch(function (err) {
-                    assert.fail(err);
-                    done();
-                });
-            });
-        });
     });
 });
