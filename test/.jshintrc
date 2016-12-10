@@ -2,8 +2,9 @@
     "es5": true,
     "expr": true,
     "node": true,
-    "mocha": false, //not working because it shows errors of double defined expect
+    "mocha": true,
     "globals": {
+        "Promise": true,
         /* MOCHA */
         "describe": false,
         "xdescribe": false,
