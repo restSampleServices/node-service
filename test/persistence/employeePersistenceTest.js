@@ -8,29 +8,70 @@ var mockRequire = require('mock-require');
 
 describe('Persistence', function () {
 
-    xdescribe('Product', function () {
+    describe('Employee', function () {
 
-        describe('general', function () {
+        describe('Public API', function () {
 
-            var productDB, product;
+            var employeeDB;
             before(function () {
-                productDB = require('../../src/persistence/productPersistence.js');
-                product = require('../../src/models/product.js');
+                //we have to set the timeout because the fake db is generated on require call
+                this.timeout(10000);
+                employeeDB = require('../../src/persistence/employeePersistence');
             });
 
             after(function () {});
 
-            it('api functions are defined', function () {
-                assert.isDefined(productDB.getAllProducts);
-                assert.isFunction(productDB.getAllProducts);
+            it('documented api functions are defined', function () {
+                assert.isDefined(employeeDB.getAllEmployees, 'getAllEmployees is not defined');
+                assert.isFunction(employeeDB.getEmployeeByUserName, 'getEmployeeByUserName is not defined');
+                assert.isDefined(employeeDB.createEmployee, 'createEmployee is not defined');
+                assert.isFunction(employeeDB.updateEmployee, 'updateEmployee is not defined');
+                assert.isDefined(employeeDB.deleteEmployee, 'deleteEmployee is not defined');
+                assert.isFunction(employeeDB.getJobByUserNameAndId, 'getJobByUserNameAndId is not defined');
+                assert.isDefined(employeeDB.createJob, 'createJob is not defined');
+                assert.isFunction(employeeDB.updateJob, 'updateJob is not defined');
+                assert.isDefined(employeeDB.deleteJob, 'deleteJob is not defined');
             });
 
-            it('getAllProducts is async', function () {
-                assert.instanceOf(productDB.getAllProducts(), Promise);
+
+            it('getAllEmployees is async', function () {
+                assert.instanceOf(employeeDB.getAllEmployees(), Promise);
+            });
+
+            it('getEmployeeByUserName is async', function () {
+                assert.instanceOf(employeeDB.getEmployeeByUserName(), Promise);
+            });
+
+            it('createEmployee is async', function () {
+                assert.instanceOf(employeeDB.createEmployee(), Promise);
+            });
+
+            it('updateEmployee is async', function () {
+                assert.instanceOf(employeeDB.updateEmployee(), Promise);
+            });
+
+            it('deleteEmployee is async', function () {
+                assert.instanceOf(employeeDB.deleteEmployee(), Promise);
+            });
+
+            it('getJobByUserNameAndId is async', function () {
+                assert.instanceOf(employeeDB.getJobByUserNameAndId(), Promise);
+            });
+
+            it('createJob is async', function () {
+                assert.instanceOf(employeeDB.createJob(), Promise);
+            });
+
+            it('updateJob is async', function () {
+                assert.instanceOf(employeeDB.updateJob(), Promise);
+            });
+
+            it('deleteJob is async', function () {
+                assert.instanceOf(employeeDB.deleteJob(), Promise);
             });
         });
 
-        describe('development db', function () {
+        xdescribe('development db', function () {
 
             // mock the configuration to use dev db
             var productDB, product;
@@ -74,7 +115,7 @@ describe('Persistence', function () {
             });
         });
 
-        describe('dynamodb', function () {
+        xdescribe('dynamodb', function () {
             var productDB, product;
             // mock the configuration to use dynamo db db
 
