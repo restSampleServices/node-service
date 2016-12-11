@@ -127,6 +127,7 @@ function getJobByUserNameAndId(userName, jobId) {
     var jh = getEmployeeByUserName(userName).jobHistory;
     for (let job of jh) {
         log.debug('check ', JSON.stringify(job));
+        jobId = jobId + ''; //convert to string
         if (job.id === jobId) {
             log.debug('found job');
             retVal = job;
