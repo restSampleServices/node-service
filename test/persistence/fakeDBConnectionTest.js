@@ -131,5 +131,34 @@ describe('Persistence', function () {
                 assert.equal(dl, dbConn.getAllEmployees().length, 'there is a difference in the count of elements');
             });
 
+            xit('should create a job with createJob', function () {
+                assert.isFunction(dbConn.createJob);
+                var uniqueJobId = new Date().getTime();
+                dbConn.createJob(testUserName, new Job({
+                    id: uniqueJobId
+                }));
+                var j = dbConn.getJobByUserNameAndId(testUserName, uniqueJobId);
+                assert.instanceOf(j, Job);
+                assert.equal(uniqueJobId, j.id, 'wrong job found');
+            });
+
+            it('should delete a job when call delete', function () {
+                var uniqueJobId = new Date().getTime();
+                dbConn.createJob(testUserName, new Job({
+                    id: uniqueJobId
+                }));
+                dbConn.deleteJob(testUserName, uniqueJobId);
+                assert.throws(function () {
+                    dbConn.getJobByUserNameAndId(testUserName, uniqueJobId);
+                }, Error, 'no job', 'query an invalid job id does not throw an exception');
+            });
+
+            it('should not throw error when delete a non existing job', function () {
+                var uniqueJobId = new Date().getTime();
+
+                var dl = dbConn.getEmployeeByUserName(testUserName).jobHistory.length;
+                dbConn.deleteJob(testUserName, uniqueJobId);
+                assert.equal(dl, dbConn.getEmployeeByUserName(testUserName).jobHistory.length, 'there is a difference in the count of elements');
+            });
         });
 });
