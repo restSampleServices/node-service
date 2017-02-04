@@ -7,6 +7,8 @@ var log = require('nodelog')({
 });
 
 var config = require('./config.json');
+//if we run in a website or in a predefined environment like azure website, then use the given port
+config.server.port = process.env.PORT || config.server.port;
 
 // ** Initialize Application ** //
 var express = require('express');

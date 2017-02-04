@@ -35,6 +35,20 @@ Feel free to participate, extend the functionality or just use it as you want.
 
 ## Quick start
 
+### Use Microsoft Azure
+
+After creating an free account for microsoft azure do the following steps:
+- for this repo
+- create a App Service (use a free tier service plan -  F1)
+- use github as source repository
+- link your App Service to your repo fork
+ 
+ 
+It should run now. But i would suggest to enable CORS in the service settings and create a "reset" scheduled for every 60 minutes (this will recreate a fresh set of data and purg the old one)
+
+You can also use my deployment if it is reachable, but it is running on free tier which means there is not enough performance for more than a handfull  parallel clients. And there is maybe somebody else using it.
+
+http://restsampleservice.azurewebsites.net/
 
 ### Use Docker
 
@@ -42,7 +56,7 @@ If you are able to run a docker images, just execute the following command:
 
     docker run-d -p 8081:8081 --name rss blndev/restsampleservice
 
-That will download the image start a container named rss, generate some fake data and make the service available at http://localhost:8081/
+This will download the image start a container named as "rss", generate some fake data and make the service available at http://localhost:8081/
 
 To see what is happens on the service execute: 
 
@@ -56,12 +70,12 @@ Then use a Browser or any Client like postman or curl to access the service.
 
 In the default configuration there is an employee service available under: http://localhost:8081/employees/
 
-### Use git and nodeJs
+Details: https://hub.docker.com/r/blndev/restsampleservice/
+
+### Use git and nodejs
 
 Just clone the repository and execute it with _"npm start"_. That will create sample data nd start up the REST Service.
 The Service will than be available at http://localhost:8081/ 
-
-Details: https://hub.docker.com/r/blndev/restsampleservices/
 
 You can configure the service, port and available features by modify the "config.json" in our root folder.
 
