@@ -53,7 +53,7 @@ paths:
               $ref: '#/definitions/EmployeeListEntry'
   /employees/{userName}:
     get:
-      summary: A list of Employees
+      summary: Get a user selected by his username
       description: |
         The Employees endpoint returns a list of employees which working in
         this commpany.
@@ -70,26 +70,184 @@ paths:
         - Employee
       responses:
         200:
-          description: A complete Employee object
+          description: returns a employee object including job history
           schema:
             type: object
             items:
               $ref: '#/definitions/Employee'
-
-
+    put:
+      summary: modify a the selected employee
+      description: |
+        The Employees endpoint returns a list of employees which working in
+        this commpany.
+      consumes:
+        - application/json
+      produces: 
+        - application/json
+        #- text/html
+      parameters:
+        - name: userName
+          in: path
+          description: filter the list of employees by the userName
+          required: true
+          type: string
+        - name: employee 
+          in: body
+          description: employee object
+          required: true
+          schema:
+            $ref: '#/definitions/Employee'
+      tags:
+        - Employee
+        - Modification
+      responses:
+        200:
+          description: returns the nmodified employee as it is stored in the backend
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Employee'
+    delete:
+      summary: delete the selected employee
+      description: |
+        The Employee will be deleted from the database.
+      produces: 
+        - application/json
+        #- text/html
+      parameters:
+        - name: userName
+          in: path
+          description: selected  employee for this opearion
+          required: true
+          type: string
+      tags:
+        - Employee
+        - Modification
+      responses:
+        200:
+          description: no response content
+        
+  /employees/{userName}/avatar:
+    get:
+      summary: get the binary of teh user avatar (redirected response)
+      description: |
+        This call returns a image or a a redirect response (302) to the binary of a user avatar 
+      produces: 
+        - image/jpeg
+        #- text/html
+      parameters:
+        - name: userName
+          in: path
+          description: filter the list of employees by the userName
+          required: true
+          type: string
+      tags:
+        - Employee
+        - Binary
+        - Avatar
+      responses:
+        200:
+          description: binary of the avatar image
+  /employees/{userName}/jobs:
+    get:
+      summary: get the job history for the selected employee
+      description: |
+        The Employees endpoint returns a list of employees which working in
+        this commpany.
+      produces: 
+        - application/json
+        #- text/html
+      parameters:
+        - name: userName
+          in: path
+          description: selected  employee for this opearion
+          required: true
+          type: string
+      tags:
+        - Employee
+        - Job
+      responses:
+        200:
+          description: returns a array of jobs
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Job'       
+  /employees/{userName}/jobs/{jobId}:
+    put:
+      summary: modify the selected job from job history for the selected employee
+      description: |
+        The Employees endpoint returns a list of employees which working in
+        this commpany.
+      produces: 
+        - application/json
+        #- text/html
+      parameters:
+        - name: userName
+          in: path
+          description: selected  employee for this opearion
+          required: true
+          type: string
+        - name: jobId
+          in: path
+          description: selected job of the job history to modfify
+          required: true
+          type: string
+        - name: job 
+          in: body
+          description: job object
+          required: true
+          schema:
+            $ref: '#/definitions/Job'    
+      tags:
+        - Employee
+        - Modification
+        - Job
+      responses:
+        200:
+          description: returns the modified job as stored in the db
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Job'   
+    delete:
+      summary: delete the selected job from job history for the selected employee
+      description: |
+        Delete the Job.
+      produces: 
+        - application/json
+        #- text/html
+      parameters:
+        - name: userName
+          in: path
+          description: selected  employee for this opearion
+          required: true
+          type: string
+        - name: jobId
+          in: path
+          description: selected job of the job history to modfify
+          required: true
+          type: string
+      tags:
+        - Employee
+        - Modification
+        - Job
+      responses:
+        200:
+          description: no return value
 definitions:
   EmployeeListEntry:
     type: object
     properties:
       firstName:
         type: string
-        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+        description: first name of the employee 
       lastName:
         type: string
-        description: Description of product.
+        description: last name of the employee
       userName:
         type: string
-        description: Display name of product.
+        description: username / identifier of teh employee
         
   Employee:
     type: object
@@ -124,38 +282,60 @@ definitions:
       jobTitle:
         type: string
         description: the current job title of the employee
-
+      address:
+        $ref: '#/definitions/Address'
+      jobHistory:
+              $ref: '#/definitions/JobList'
+  JobList:
+    type: array
+    items: 
+      $ref: '#/definitions/Job'
   Job:
     type: object
     properties:
-      first_name:
+      id:
         type: string
-        description: First name of the Uber user.
-      last_name:
+        description: identifier of the job history entry
+      companyName:
         type: string
-        description: Last name of the Uber user.
-      email:
+        description: name of the company
+      department:
         type: string
-        description: Email address of the Uber user
-      picture:
+        description: the department where the employee has worked in that company
+      dateStart:
         type: string
-        description: Image URL of the Uber user.
-      promo_code:
+        description: first day of work
+      dateEnd:
         type: string
-        description: Promo code of the Uber user.
+        description: last day of work
+      address:
+        $ref: '#/definitions/Address'
   Address:
     type: object
     properties:
-      uuid:
+      country:
         type: string
-        description: Unique identifier for the activity
-  Error:
+        description: name of the country
+      city:
+        type: string
+        description: name of the city
+      zipcode:
+        type: string
+        description: zipcode in the city
+      street:
+        type: string
+        description: street information
+      street2:
+        type: string
+        description: additional street information
+      geo:
+        $ref: '#/definitions/GeoPosition'
+  GeoPosition:
     type: object
     properties:
-      code:
-        type: integer
-        format: int32
-      message:
+      latitude:
         type: string
-      fields:
+        description: latitude of the address to show in maps
+      longitude:
         type: string
+        description: longitude of the adress to show in maps
