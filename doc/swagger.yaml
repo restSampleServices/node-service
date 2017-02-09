@@ -19,7 +19,7 @@ produces:
 paths:
   /employees:
     get:
-      summary: A list of Employees
+      summary: Provides a list of Employees with a reduced respone set
       description: |
         The Employees endpoint returns a list of employees which working in
         this commpany.
@@ -51,15 +51,18 @@ paths:
             type: array
             items:
               $ref: '#/definitions/EmployeeListEntry'
-  /employees/userName:
+  /employees/{userName}:
     get:
       summary: A list of Employees
       description: |
         The Employees endpoint returns a list of employees which working in
         this commpany.
+      produces: 
+        - application/json
+        #- text/html
       parameters:
         - name: userName
-          in: query
+          in: path
           description: filter the list of employees by the userName
           required: true
           type: string
@@ -114,7 +117,14 @@ definitions:
         description: the identifier of the user
       imageUrl:        
         type: string
-        description: a absolute url of the picture to the user
+        description: a absolute url of the picture to the user        
+      department: 
+        type: string
+        description: the department in your organization where the employee is curretnly working on
+      jobTitle:
+        type: string
+        description: the current job title of the employee
+
   Job:
     type: object
     properties:
