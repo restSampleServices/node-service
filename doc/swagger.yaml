@@ -1,0 +1,151 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Rest Sample Service API
+  description: A simple Employee Service as sample fro Trainings or Tutorials
+  version: "1.0.0"
+# the domain of the service
+host: restsampleservice.azurewebsites.net
+# array of all schemes that your API supports
+schemes:
+  - http
+  - https
+
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+paths:
+  /employees:
+    get:
+      summary: A list of Employees
+      description: |
+        The Employees endpoint returns a list of employees which working in
+        this commpany.
+      parameters:
+        - name: filter
+          in: query
+          description: filter the list of employees by the userName
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Number of the Page which should be returned.
+          required: false
+          type: number
+          format: int32
+        - name: pageSize
+          in: query
+          description: Elements per Page, Default 100
+          required: false
+          type: number
+          format: int32
+      tags:
+        - Employee
+        - Lists
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeListEntry'
+  /employees/userName:
+    get:
+      summary: A list of Employees
+      description: |
+        The Employees endpoint returns a list of employees which working in
+        this commpany.
+      parameters:
+        - name: userName
+          in: query
+          description: filter the list of employees by the userName
+          required: true
+          type: string
+      tags:
+        - Employee
+      responses:
+        200:
+          description: A complete Employee object
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Employee'
+
+
+definitions:
+  EmployeeListEntry:
+    type: object
+    properties:
+      firstName:
+        type: string
+        description: Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.
+      lastName:
+        type: string
+        description: Description of product.
+      userName:
+        type: string
+        description: Display name of product.
+        
+  Employee:
+    type: object
+    properties:
+      firstName:     
+        type: string
+        description: the first name
+      lastName: 
+        type: string
+        description: last name
+      fullName:    
+        type: string
+        description: combination of first name and last name
+      dateOfBirth:   
+        type: string
+        description: date of birth as JSON Date
+      email:      
+        type: string
+        description: a valid email address
+      phone:      
+        type: string
+        description: a phone number including country code.
+      userName:        
+        type: string
+        description: the identifier of the user
+      imageUrl:        
+        type: string
+        description: a absolute url of the picture to the user
+  Job:
+    type: object
+    properties:
+      first_name:
+        type: string
+        description: First name of the Uber user.
+      last_name:
+        type: string
+        description: Last name of the Uber user.
+      email:
+        type: string
+        description: Email address of the Uber user
+      picture:
+        type: string
+        description: Image URL of the Uber user.
+      promo_code:
+        type: string
+        description: Promo code of the Uber user.
+  Address:
+    type: object
+    properties:
+      uuid:
+        type: string
+        description: Unique identifier for the activity
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
