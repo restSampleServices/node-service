@@ -2,7 +2,7 @@
     "name": "restSampleServicese",
     "version": "0.2.0",
     "description": "sample rest services for training of client developers",
-    "main": "index.js",
+    "main": "src/service.js",
     "directories": {
         "doc": "doc"
     },
