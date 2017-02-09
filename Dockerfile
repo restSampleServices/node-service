@@ -1,17 +1,19 @@
 FROM node:argon
 
-RUN apt-get update -y
+# RUN apt-get update && apt-get install -y \
+#    curl \
+#    s3cmd=1.1.* \
+# && rm -rf /var/lib/apt/lists/*
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install
+# prepare install app dependencies
+COPY package.json /usr/app/
+# set working directory
+WORKDIR /usr/app
+# install app dependencies
+RUN npm install --production
 
 # Bundle app source
-COPY . /usr/src/app
+COPY ./src /usr/app/src
 
 EXPOSE 8081
 
