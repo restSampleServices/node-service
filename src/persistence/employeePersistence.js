@@ -142,7 +142,6 @@ exports.getEmployeeByUserName = getEmployeeByUserName;
 exports.createEmployee = createEmployee;
 exports.updateEmployee = updateEmployee;
 exports.deleteEmployee = deleteEmployee;
-exports.createEmployee = updateEmployee;
 
 exports.getJobByUserNameAndId = getJobByUserNameAndId;
 exports.createJob = createJob;

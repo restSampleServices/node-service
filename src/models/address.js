@@ -112,7 +112,10 @@ function Address(json) {
             if (value !== undefined) {
                 _internalData.geo = value;
             } else {
-                _internalData.geo = '';
+                _internalData.geo = {
+                    longitude: '',
+                    latitude: ''
+                };
             }
         }
     });

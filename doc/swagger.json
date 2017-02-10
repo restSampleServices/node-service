@@ -1,0 +1,454 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Rest Sample Service API",
+        "description": "A simple Employee Service as sample fro Trainings or Tutorials",
+        "version": "1.0.0"
+    },
+    "host": "restsampleservice.azurewebsites.net",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/employees": {
+            "get": {
+                "summary": "Provides a list of Employees with a reduced respone set",
+                "description": "The Employees endpoint returns a list of employees which working in\nthis commpany.\n",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "filter the list of employees by the userName",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Number of the Page which should be returned.",
+                        "required": false,
+                        "type": "number",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Elements per Page, Default 100",
+                        "required": false,
+                        "type": "number",
+                        "format": "int32"
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Lists"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of products",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/EmployeeListEntry"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/{userName}": {
+            "get": {
+                "summary": "Get a user selected by his username",
+                "description": "The Employees endpoint returns a list of employees which working in\nthis commpany.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "filter the list of employees by the userName",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Employee"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns a employee object including job history",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Employee"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "modify a the selected employee",
+                "description": "The Employees endpoint returns a list of employees which working in\nthis commpany.\n",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "filter the list of employees by the userName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "employee",
+                        "in": "body",
+                        "description": "employee object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Employee"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Modification"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the nmodified employee as it is stored in the backend",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Employee"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "delete the selected employee",
+                "description": "The Employee will be deleted from the database.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "selected  employee for this opearion",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Modification"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "no response content"
+                    }
+                }
+            }
+        },
+        "/employees/{userName}/avatar": {
+            "get": {
+                "summary": "get the binary of teh user avatar (redirected response)",
+                "description": "This call returns a image or a a redirect response (302) to the binary of a user avatar \n",
+                "produces": [
+                    "image/jpeg"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "filter the list of employees by the userName",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Binary",
+                    "Avatar"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "binary of the avatar image"
+                    }
+                }
+            }
+        },
+        "/employees/{userName}/jobs": {
+            "get": {
+                "summary": "get the job history for the selected employee",
+                "description": "The Employees endpoint returns a list of employees which working in\nthis commpany.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "selected  employee for this opearion",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Job"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns a array of jobs",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Job"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/{userName}/jobs/{jobId}": {
+            "put": {
+                "summary": "modify the selected job from job history for the selected employee",
+                "description": "The Employees endpoint returns a list of employees which working in\nthis commpany.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "selected  employee for this opearion",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "selected job of the job history to modfify",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "job",
+                        "in": "body",
+                        "description": "job object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Job"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Modification",
+                    "Job"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns the modified job as stored in the db",
+                        "schema": {
+                            "type": "object",
+                            "items": {
+                                "$ref": "#/definitions/Job"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "delete the selected job from job history for the selected employee",
+                "description": "Delete the Job.\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userName",
+                        "in": "path",
+                        "description": "selected  employee for this opearion",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "description": "selected job of the job history to modfify",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "Employee",
+                    "Modification",
+                    "Job"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "no return value"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "EmployeeListEntry": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string",
+                    "description": "first name of the employee"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "last name of the employee"
+                },
+                "userName": {
+                    "type": "string",
+                    "description": "username / identifier of teh employee"
+                }
+            }
+        },
+        "Employee": {
+            "type": "object",
+            "properties": {
+                "firstName": {
+                    "type": "string",
+                    "description": "the first name"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "last name"
+                },
+                "fullName": {
+                    "type": "string",
+                    "description": "combination of first name and last name"
+                },
+                "dateOfBirth": {
+                    "type": "string",
+                    "description": "date of birth as JSON Date"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "a valid email address"
+                },
+                "phone": {
+                    "type": "string",
+                    "description": "a phone number including country code."
+                },
+                "userName": {
+                    "type": "string",
+                    "description": "the identifier of the user"
+                },
+                "imageUrl": {
+                    "type": "string",
+                    "description": "a absolute url of the picture to the user"
+                },
+                "department": {
+                    "type": "string",
+                    "description": "the department in your organization where the employee is curretnly working on"
+                },
+                "jobTitle": {
+                    "type": "string",
+                    "description": "the current job title of the employee"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                },
+                "jobHistory": {
+                    "$ref": "#/definitions/JobList"
+                }
+            }
+        },
+        "JobList": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Job"
+            }
+        },
+        "Job": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "identifier of the job history entry"
+                },
+                "companyName": {
+                    "type": "string",
+                    "description": "name of the company"
+                },
+                "department": {
+                    "type": "string",
+                    "description": "the department where the employee has worked in that company"
+                },
+                "dateStart": {
+                    "type": "string",
+                    "description": "first day of work"
+                },
+                "dateEnd": {
+                    "type": "string",
+                    "description": "last day of work"
+                },
+                "address": {
+                    "$ref": "#/definitions/Address"
+                }
+            }
+        },
+        "Address": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string",
+                    "description": "name of the country"
+                },
+                "city": {
+                    "type": "string",
+                    "description": "name of the city"
+                },
+                "zipcode": {
+                    "type": "string",
+                    "description": "zipcode in the city"
+                },
+                "street": {
+                    "type": "string",
+                    "description": "street information"
+                },
+                "street2": {
+                    "type": "string",
+                    "description": "additional street information"
+                },
+                "geo": {
+                    "$ref": "#/definitions/GeoPosition"
+                }
+            }
+        },
+        "GeoPosition": {
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": "string",
+                    "description": "latitude of the address to show in maps"
+                },
+                "longitude": {
+                    "type": "string",
+                    "description": "longitude of the adress to show in maps"
+                }
+            }
+        }
+    }
+}
