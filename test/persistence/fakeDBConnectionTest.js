@@ -42,6 +42,7 @@ describe('Persistence', function () {
             }
         });
         dbConn = require('../../src/persistence/fakeDBConnection');
+        dbConn.resetData(testEmployeeCount);
     });
 
     describe('fakeDB Connection',

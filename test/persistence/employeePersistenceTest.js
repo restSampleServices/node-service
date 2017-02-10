@@ -78,7 +78,7 @@ describe('Persistence', function () {
             var testEmployeeCount = 10;
             before(function () {
                 this.timeout(10000);
-
+                delete require.cache[require.resolve('../../src/config.json')]
                 mockRequire('../../src/config.json', {
                     "services": {
                         "employees": {
@@ -99,16 +99,21 @@ describe('Persistence', function () {
                     }
                 });
 
+                //to reduce the amount of users
+                var dbConn = require('../../src/persistence/fakeDBConnection');
+                dbConn.resetData(testEmployeeCount);
+                //the object for the deinfed tests:
                 employeeDB = require('../../src/persistence/employeePersistence');
-
             });
 
             after(function () {
                 mockRequire.stop('../../src/config.json');
+                delete require.cache[require.resolve('../../src/config.json')]
             });
 
             it('getAllEmployees delivers list of Employee', function (done) {
                 //ISSUE: fakeDB already created??
+                this.timeout(10000);
 
                 employeeDB.getAllEmployees().then(function (emps) {
                     assert.isArray(emps);
