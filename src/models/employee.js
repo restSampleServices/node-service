@@ -102,7 +102,7 @@ function Employee(json) {
             if (value !== undefined) {
                 _internalData.dateOfBirth = value;
             } else {
-                _internalData.dateOfBirth = '';
+                _internalData.dateOfBirth = undefined;
             }
         }
     });
