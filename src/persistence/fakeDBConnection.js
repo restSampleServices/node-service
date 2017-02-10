@@ -78,11 +78,13 @@ function provisionCreateEmployee() {
     };
 }
 
-function createFakeData() {
+function createFakeData(count) {
     log.info('fakeDB.createFakeData');
     if (employeeDB === undefined) {
         employeeDB = [];
-        for (var i = 0; i < config.persistence.fakeDB.employeeCount; i++) {
+    }
+    if (employeeDB.length === 0) {
+        for (var i = 0; i < count; i++) {
             var e = new Employee(provisionCreateEmployee());
             employeeDB.push(e);
         }
@@ -92,7 +94,7 @@ function createFakeData() {
     return employeeDB;
 }
 
-createFakeData();
+createFakeData(config.persistence.fakeDB.employeeCount);
 
 // **************************************************************************
 // Data Manipulation
@@ -187,6 +189,11 @@ function deleteJob(userName, jobId) {
         }
     }
 }
+
+exports.resetData = function (count) {
+    employeeDB = [];
+    createFakeData(count);
+};
 
 //TODO: create a object for database instead of module
 exports.getEmployeeByUserName = getEmployeeByUserName;
