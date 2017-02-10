@@ -12,48 +12,60 @@ describe('Models', function () {
         assert.isDefined(Address, 'testclass could not be loaded');
 
     });
-    
+
     describe('Address',
         function () {
             it('initialization and getter for country works', function () {
                 var testData = 'simple test value';
-                var address = new Address({country: testData});
+                var address = new Address({
+                    country: testData
+                });
                 assert.isString(address.country);
                 assert.equal(address.country, testData);
             });
-        
+
             it('setter and getter for country works', function () {
                 var testData = 'simple test value';
                 var address = new Address();
                 assert.isString(address.country);
                 assert.notEqual(address.country, testData);
-                address.country= testData;
+                address.country = testData;
                 assert.equal(address.country, testData);
+                address.country = undefined;
+                assert.equal(address.country, '');
             });
 
             it('initialization and getter for city works', function () {
                 var testData = 'simple test value';
-                var address = new Address({city: testData});
+                var address = new Address({
+                    city: testData
+                });
                 assert.isString(address.city);
                 assert.equal(address.city, testData);
             });
-        
+
             it('setter and getter for city works', function () {
                 var testData = 'simple test value';
                 var address = new Address();
                 assert.isString(address.city);
                 assert.notEqual(address.city, testData);
-                address.city= testData;
+                address.city = testData;
                 assert.equal(address.city, testData);
+                address.city = undefined;
+                assert.equal(address.city, '');
             });
-        
+
             it('initialization and getter for zipcode works', function () {
                 var testData = '12345';
-                var address = new Address({zipcode: testData});
+                var address = new Address({
+                    zipcode: testData
+                });
                 assert.isString(address.zipcode);
                 assert.equal(address.zipcode, testData);
+                address.zipcode = undefined;
+                assert.equal(address.zipcode, '');
             });
-        
+
             it('setter and getter for zipcode works', function () {
                 var testData = 'simple test value';
                 var address = new Address();
@@ -65,11 +77,13 @@ describe('Models', function () {
 
             it('initialization and getter for street works', function () {
                 var testData = 'simple test value';
-                var address = new Address({street: testData});
+                var address = new Address({
+                    street: testData
+                });
                 assert.isString(address.street);
                 assert.equal(address.street, testData);
             });
-        
+
             it('setter and getter for street works', function () {
                 var testData = 'simple test value';
                 var address = new Address();
@@ -77,15 +91,19 @@ describe('Models', function () {
                 assert.notEqual(address.street, testData);
                 address.street = testData;
                 assert.equal(address.street, testData);
+                address.street = undefined;
+                assert.equal(address.street, '');
             });
-        
+
             it('initialization and getter for street2 works', function () {
                 var testData = 'simple test value';
-                var address = new Address({street2: testData});
+                var address = new Address({
+                    street2: testData
+                });
                 assert.isString(address.street2);
                 assert.equal(address.street2, testData);
             });
-        
+
             it('setter and getter for street2 works', function () {
                 var testData = 'simple test value';
                 var address = new Address();
@@ -93,18 +111,28 @@ describe('Models', function () {
                 assert.notEqual(address.street2, testData);
                 address.street2 = testData;
                 assert.equal(address.street2, testData);
+                address.street2 = undefined;
+                assert.equal(address.street2, '');
             });
-        
+
             it('initialization and getter for geo works', function () {
-                var testData = {latitude: '1234', longitude: '9876'};
-                var address = new Address({geo: testData});
+                var testData = {
+                    latitude: '1234',
+                    longitude: '9876'
+                };
+                var address = new Address({
+                    geo: testData
+                });
                 assert.isObject(address.geo);
                 assert.equal(address.geo.latitude, testData.latitude);
                 assert.equal(address.geo.longitude, testData.longitude);
             });
-        
+
             it('setter and getter for geo works', function () {
-                var testData = {latitude: '1234', longitude: '9876'};
+                var testData = {
+                    latitude: '1234',
+                    longitude: '9876'
+                };
                 var address = new Address();
                 assert.isObject(address.geo);
                 assert.isString(address.geo.latitude);
@@ -117,6 +145,11 @@ describe('Models', function () {
 
                 assert.equal(address.geo.latitude, testData.latitude);
                 assert.equal(address.geo.longitude, testData.longitude);
+
+                address.geo = undefined;
+                assert.equal(address.geo.latitude, '');
+                assert.equal(address.geo.longitude, '');
+
             });
 
         });
