@@ -15,6 +15,12 @@ RUN npm install --production
 # Bundle app source
 COPY ./src /usr/app/src
 
-EXPOSE 8081
+RUN groupadd -g 999 appuser && \
+    useradd -r -u 999 -g appuser appuser -d /home/appuser && \
+    chown -R appuser.appuser /usr/app
+
+USER appuser
+
+EXPOSE 8080
 
 CMD [ "npm", "start" ]
