@@ -36,28 +36,28 @@
     "sample"
   ],
     "dependencies": {
-        "body-parser": "^1.15.2",
-        "cli-color": "^1.1.0",
-        "express": "^4.13.4",
-        "faker": "^3.1.0",
-        "nodelog": "^0.3.0"
+        "body-parser": "",
+        "cli-color": "",
+        "express": "",
+        "faker": "",
+        "nodelog": ""
     },
     "devDependencies": {
-        "asciidoctor.js": "^1.5.5-1",
-        "chai": "^3.5.0",
-        "del": "^2.2.0",
-        "gulp": "^3.9.1",
-        "gulp-asciidoctor": "^1.0.7",
-        "gulp-autoprefixer": "^3.1.0",
-        "gulp-concat": "^2.6.0",
-        "gulp-jshint": "^2.0.0",
-        "gulp-rename": "^1.2.2",
-        "gulp-uglify": "^1.5.3",
-        "istanbul": "^0.4.4",
-        "jshint": "^2.9.2",
-        "jshint-stylish": "^2.2.0",
-        "mocha": "^3.0.0",
-        "mock-require": "^1.3.0",
-        "node-mocks-http": "^1.5.2"
+        "asciidoctor.js": "",
+        "chai": "",
+        "del": "",
+        "gulp": "",
+        "gulp-asciidoctor": "",
+        "gulp-autoprefixer": "",
+        "gulp-concat": "",
+        "gulp-jshint": "",
+        "gulp-rename": "",
+        "gulp-uglify": "",
+        "istanbul": "",
+        "jshint": "",
+        "jshint-stylish": "",
+        "mocha": "",
+        "mock-require": "",
+        "node-mocks-http": ""
     }
 }
