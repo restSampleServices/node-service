@@ -55,8 +55,9 @@ gulp.task('clean', function () {
     return del(['dist/*']);
 });
 
-gulp.task('default', ['clean'], function () {
+gulp.task('ci', ['clean'], function () {
     gulp.start('ServiceScripts');
-    //parallel tasks
-    //gulp.start('ServiceScripts', 'ClientScripts', 'ClientAssets');
+});
+
+gulp.task('default', ['ci'], function () {
 });
